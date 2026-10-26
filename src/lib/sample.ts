@@ -1,5 +1,5 @@
 /**
- * An optional sample book for exploring Dictationer: a short literary piece set in a
+ * An optional sample book for exploring BolToBook: a short literary piece set in a
  * hill town, with a few chapters, goals, people, a place, two Laps and some history.
  * Chapter text is the desk's Markdown subset (`@/lib/markdown`): chapter 3 shows an italic phrase and a scene break.
  * It contains a few deliberate slips (double spaces, a repeated word, "...") so

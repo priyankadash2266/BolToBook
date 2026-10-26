@@ -1,6 +1,6 @@
 /**
  * Voice editing: the author says what to change and where, in their own words.
- * Dictationer finds the place and prepares exactly that change for approval.
+ * BolToBook finds the place and prepares exactly that change for approval.
  * It never invents text: inserted or replacement words always come from the instruction.
  *
  * Supported instructions (English):

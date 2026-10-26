@@ -1,5 +1,5 @@
 export default {
-  brand: 'Dictationer',
+  brand: 'BolToBook',
   actions: {
     save: 'सहेजें', cancel: 'रद्द करें', delete: 'हटाएँ', undo: 'वापस लें', close: 'बंद करें', back: 'पीछे', next: 'आगे बढ़ें',
     done: 'हो गया', edit: 'बदलें', add: 'जोड़ें', open: 'खोलें', remove: 'हटाएँ', rename: 'नाम बदलें', download: 'डाउनलोड',

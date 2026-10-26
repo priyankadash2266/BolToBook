@@ -1,5 +1,6 @@
-import { getChatGPTUser } from '../../../chatgpt-auth';
-import { runtimeEnv as env, json, sameOrigin } from '../../runtime';
+import { verifiedSession } from '../../../../server/supabase';
+import { runtime } from '../../../../server/database';
+import { json, sameOrigin } from '../../runtime';
 import { countWords } from '../../../../src/lib/text';
 
 export const dynamic='force-dynamic';
@@ -8,8 +9,8 @@ const allowed=new Set(['books','chapters','laps','entities','versions','feedback
 async function handler(req:Request){
  try{
   if(req.method!=='GET'&&!sameOrigin(req))return json({error:'Invalid origin'},403);
-  const user=await getChatGPTUser();if(!user)return json({error:'Sign in to save your writing'},401);
-  const owner=user.userId, db=env.DB, bucket=env.BUCKET;
+  const user=await verifiedSession();if(!user)return json({error:'Sign in to save your writing'},401);
+  const env=runtime(user.token);const owner=user.userId, db=env.DB, bucket=env.BUCKET;
   const now=()=>new Date().toISOString();const uid=()=>crypto.randomUUID();
   const path=new URL(req.url).pathname.split('/api/studio/')[1].split('/');
   const [kind,id,sub,action]=path, method=req.method, query=new URL(req.url).searchParams;
@@ -57,7 +58,7 @@ async function handler(req:Request){
   }
   if(kind==='import'&&method==='POST'){
    const b=await body();if(b.format!=='dictationer-export')return json({error:'Invalid backup'},400);
-   const jobs:D1PreparedStatement[]=[];
+   const jobs:ReturnType<typeof db.prepare>[]=[];
    for(const k of ['books','chapters','laps','entities','versions','feedback']){
     if(!Array.isArray(b[k]??[]))return json({error:'Invalid backup rows'},400);
     for(const r of b[k]??[]){if(typeof r.id!=='string'||r.id.length>128)return json({error:'Invalid record'},400);jobs.push(statement(k,r))}

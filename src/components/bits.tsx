@@ -7,8 +7,8 @@ import type { AppLang } from '@/data/types';
 
 export function Wordmark({ to = '/', light = false, size = 24 }: { to?: string; light?: boolean; size?: number }) {
   return (
-    <Link to={to} aria-label="Dictationer" style={{ display: 'inline-flex', alignItems: 'baseline', gap: 2, textDecoration: 'none', color: light ? '#F4EFE6' : 'var(--brand)' }}>
-      <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontStyle: 'italic', fontWeight: 600, fontSize: size, letterSpacing: '-0.01em' }}>Dictationer</span>
+    <Link to={to} aria-label="BolToBook" style={{ display: 'inline-flex', alignItems: 'baseline', gap: 2, textDecoration: 'none', color: light ? '#F4EFE6' : 'var(--brand)' }}>
+      <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontStyle: 'italic', fontWeight: 600, fontSize: size, letterSpacing: '-0.01em' }}>BolToBook</span>
       <span style={{ width: size / 4, height: size / 4, borderRadius: '50%', background: light ? '#E08A6F' : 'var(--edit)', display: 'inline-block' }} />
     </Link>
   );
@@ -16,7 +16,7 @@ export function Wordmark({ to = '/', light = false, size = 24 }: { to?: string; 
 
 export function Monogram({ to = '/app' }: { to?: string }) {
   return (
-    <Link to={to} aria-label="Dictationer" style={{ fontFamily: "'Fraunces', Georgia, serif", fontStyle: 'italic', fontWeight: 600, fontSize: 22, color: 'var(--mono, var(--brand))', textDecoration: 'none', lineHeight: 1 }}>
+    <Link to={to} aria-label="BolToBook" style={{ fontFamily: "'Fraunces', Georgia, serif", fontStyle: 'italic', fontWeight: 600, fontSize: 22, color: 'var(--mono, var(--brand))', textDecoration: 'none', lineHeight: 1 }}>
       D<span style={{ color: 'var(--mono-dot, var(--edit))' }}>.</span>
     </Link>
   );

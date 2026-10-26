@@ -12,7 +12,64 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 import type { AppLang } from '@/data/types';
 
 type Dict = { [k: string]: string | Dict };
-const modules = import.meta.glob('./locales/*/*.ts', { eager: true }) as unknown as Record<string,{default:Dict}>;
+import locale0 from './locales/en/common';
+import locale1 from './locales/en/cover2';
+import locale2 from './locales/en/editor';
+import locale3 from './locales/en/finish';
+import locale4 from './locales/en/history';
+import locale5 from './locales/en/kit';
+import locale6 from './locales/en/landing';
+import locale7 from './locales/en/laps';
+import locale8 from './locales/en/library';
+import locale9 from './locales/en/lifecycle';
+import locale10 from './locales/en/onboarding';
+import locale11 from './locales/en/settings';
+import locale12 from './locales/en/simple';
+import locale13 from './locales/en/write';
+import locale14 from './locales/hi/common';
+import locale15 from './locales/hi/cover2';
+import locale16 from './locales/hi/editor';
+import locale17 from './locales/hi/finish';
+import locale18 from './locales/hi/history';
+import locale19 from './locales/hi/kit';
+import locale20 from './locales/hi/landing';
+import locale21 from './locales/hi/laps';
+import locale22 from './locales/hi/library';
+import locale23 from './locales/hi/lifecycle';
+import locale24 from './locales/hi/onboarding';
+import locale25 from './locales/hi/settings';
+import locale26 from './locales/hi/simple';
+import locale27 from './locales/hi/write';
+const modules = {
+ './locales/en/common.ts': {default:locale0},
+ './locales/en/cover2.ts': {default:locale1},
+ './locales/en/editor.ts': {default:locale2},
+ './locales/en/finish.ts': {default:locale3},
+ './locales/en/history.ts': {default:locale4},
+ './locales/en/kit.ts': {default:locale5},
+ './locales/en/landing.ts': {default:locale6},
+ './locales/en/laps.ts': {default:locale7},
+ './locales/en/library.ts': {default:locale8},
+ './locales/en/lifecycle.ts': {default:locale9},
+ './locales/en/onboarding.ts': {default:locale10},
+ './locales/en/settings.ts': {default:locale11},
+ './locales/en/simple.ts': {default:locale12},
+ './locales/en/write.ts': {default:locale13},
+ './locales/hi/common.ts': {default:locale14},
+ './locales/hi/cover2.ts': {default:locale15},
+ './locales/hi/editor.ts': {default:locale16},
+ './locales/hi/finish.ts': {default:locale17},
+ './locales/hi/history.ts': {default:locale18},
+ './locales/hi/kit.ts': {default:locale19},
+ './locales/hi/landing.ts': {default:locale20},
+ './locales/hi/laps.ts': {default:locale21},
+ './locales/hi/library.ts': {default:locale22},
+ './locales/hi/lifecycle.ts': {default:locale23},
+ './locales/hi/onboarding.ts': {default:locale24},
+ './locales/hi/settings.ts': {default:locale25},
+ './locales/hi/simple.ts': {default:locale26},
+ './locales/hi/write.ts': {default:locale27}
+} as unknown as Record<string,{default:Dict}>;
 
 const catalog: Record<string, Record<string, Dict>> = {};
 for (const [path, mod] of Object.entries(modules)) {

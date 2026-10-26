@@ -1,5 +1,5 @@
 export default {
-  brand: 'Dictationer',
+  brand: 'BolToBook',
   actions: {
     save: 'Save', cancel: 'Cancel', delete: 'Delete', undo: 'Undo', close: 'Close', back: 'Back', next: 'Continue',
     done: 'Done', edit: 'Edit', add: 'Add', open: 'Open', remove: 'Remove', rename: 'Rename', download: 'Download',

@@ -1,11 +1,11 @@
 export default {
   kicker: 'Your preferences',
   title: 'Settings',
-  sub: 'How Dictationer works for you. Every change saves on its own.',
+  sub: 'How BolToBook works for you. Every change saves on its own.',
   saved: 'Saved.',
   you: 'You',
   appLang: { label: 'Interface language', desc: 'Menus and help appear in this language. Your book’s language is set separately below.' },
-  name: { label: 'Your name', desc: 'How Dictationer greets you, and the author name for new books.', ph: 'Your name' },
+  name: { label: 'Your name', desc: 'How BolToBook greets you, and the author name for new books.', ph: 'Your name' },
   country: { label: 'Country', desc: 'Shapes ISBN and copyright guidance, publishing platforms and the currency for prices.' },
   book: {
     heading: 'Current book',
@@ -50,7 +50,7 @@ export default {
     exported: 'Your export is downloading.',
     import: 'Import from a file',
     imported: 'Import finished.',
-    importFailed: 'That file couldn’t be imported. Choose a Dictationer export (.json).',
+    importFailed: 'That file couldn’t be imported. Choose a BolToBook export (.json).',
     sample: 'Add a sample book to explore',
     sampleDesc: 'Pick a kind of book to see its whole lifecycle filled in: chapters, people or sources, Laps and history. Nonfiction and memoir samples are in English.',
     sampleAdded: 'A sample book is on your shelf.',
@@ -78,7 +78,7 @@ export default {
     kinds: { cover: 'Cover design', preview: 'Preview', export: 'Export', grant: 'Welcome', topup: 'Added' },
   },
   groups: {
-    you: { t: 'You', d: 'How Dictationer speaks to you and where you publish from.' },
+    you: { t: 'You', d: 'How BolToBook speaks to you and where you publish from.' },
     book: { t: 'This book', d: 'The details that go on the title page and the cover.' },
     credits: { t: 'Credits', d: 'Cover designs, book previews and exports each use credits.' },
     voice: { t: 'Voice', d: 'How your spoken words are written down, and what is kept.' },

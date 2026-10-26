@@ -9,7 +9,7 @@ import type { AppLang } from '@/data/types';
 export class PageBoundary extends Component<{ children: ReactNode; resetKey?: string }, { error: Error | null }> {
   state: { error: Error | null } = { error: null };
   static getDerivedStateFromError(error: Error) { return { error }; }
-  componentDidCatch(error: Error) { console.error('[Dictationer] page failed:', error); }
+  componentDidCatch(error: Error) { console.error('[BolToBook] page failed:', error); }
   componentDidUpdate(prev: { resetKey?: string }) { if (prev.resetKey !== this.props.resetKey && this.state.error) this.setState({ error: null }); }
   render() {
     const { error } = this.state;

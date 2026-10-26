@@ -2,7 +2,7 @@ import Dexie, { type Table } from 'dexie';
 import type { CreditEntry, MediaItem, AudioClip, Book, Chapter, Entity, Feedback, Lap, Profile, Version } from './types';
 
 /** IndexedDB schema used by LocalApi. Only LocalApi may import this file. */
-export class DictationerDB extends Dexie {
+export class BolToBookDB extends Dexie {
   profile!: Table<Profile, string>;
   books!: Table<Book, string>;
   chapters!: Table<Chapter, string>;
@@ -31,4 +31,4 @@ export class DictationerDB extends Dexie {
   }
 }
 
-export const db = new DictationerDB();
+export const db = new BolToBookDB();

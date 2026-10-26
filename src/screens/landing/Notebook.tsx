@@ -8,7 +8,7 @@ import { useLoopClock, useOnScreen, useReducedMotion } from './useMotion';
  * The living notebook: one seamless 20-second loop of a writing session.
  *   0.0 – 7.0   the author dictates; raw words arrive, then settle into punctuated text
  *   7.0 – 10.6  the author speaks a voice edit (waveform turns vermilion)
- *  10.6 – 12.6  Dictationer finds the earlier passage (page scrolls up to it)
+ *  10.6 – 12.6  BolToBook finds the earlier passage (page scrolls up to it)
  *  12.6 – 16.6  the change is shown: removed marks struck, the author's own words added
  *  16.0         the author taps Accept → "Saved as a new version"
  *  17.6 – 20.0  back to the chapter being written; the paragraph fades for the next loop

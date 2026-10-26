@@ -339,7 +339,7 @@ export class LocalApi implements Api {
     }),
     importAll: async (dump) => {
       const d = dump as Record<string, unknown[]> & { format?: string; profile?: Profile };
-      if (d?.format !== 'dictationer-export') throw new Error('This file is not a Dictationer export.');
+      if (d?.format !== 'dictationer-export') throw new Error('This file is not a BolToBook export.');
       await db.transaction('rw', [db.profile, db.books, db.chapters, db.laps, db.entities, db.versions, db.feedback], async () => {
         if (d.profile) await db.profile.put(d.profile);
         await db.books.bulkPut((d.books ?? []) as Book[]);

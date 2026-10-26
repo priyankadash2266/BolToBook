@@ -1,5 +1,5 @@
 export default {
-  leftNote: 'Four quick questions. Each one changes how Dictationer works for you, and every answer can be changed later in Settings.',
+  leftNote: 'Four quick questions. Each one changes how BolToBook works for you, and every answer can be changed later in Settings.',
   leftNoteNew: 'A new book gets its own desk: its own chapters, people, Laps and history.',
   progress: 'Progress',
   stepOf: 'Step {n} / {total}',
@@ -17,7 +17,7 @@ export default {
     qNew: 'What language is this book in?',
     country: 'Country',
     countryHelp: 'Sets ISBN and copyright guidance, publishing platforms and currency.',
-    appLang: 'Use Dictationer in',
+    appLang: 'Use BolToBook in',
     appHelp: 'Menus and help appear in this language. It switches right away.',
     bookLang: 'Your book is in',
     bookHelp: 'Sets voice recognition, typesetting and proofreading.',

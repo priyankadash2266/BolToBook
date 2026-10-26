@@ -45,6 +45,11 @@
     "node_modules",
     "examples",
     "components",
-    "hooks"
+    "hooks",
+    "build",
+    "db",
+    "lib",
+    "drizzle.config.ts",
+    "vite.config.ts"
   ]
 }

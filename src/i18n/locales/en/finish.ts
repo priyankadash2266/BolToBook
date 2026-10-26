@@ -224,7 +224,7 @@ export default {
       title: 'Before you publish',
       sub: 'ISBN, copyright, deposit, where to sell',
       country: 'Country you publish from',
-      disclaimer: 'Dictationer prepares your files; it isn’t a publisher. You choose where your book goes and keep every right. Rules and fees change, so check each official source before you publish.',
+      disclaimer: 'BolToBook prepares your files; it isn’t a publisher. You choose where your book goes and keep every right. Rules and fees change, so check each official source before you publish.',
     },
   },
 
@@ -561,6 +561,6 @@ export default {
     copyright: '© {year} {author}',
     rights: 'All rights reserved. No part of this book may be reproduced in any form without written permission from the author, except for brief quotations in reviews.',
     published: 'First published in {country}, {year}.',
-    typeset: 'Typeset with Dictationer.',
+    typeset: 'Typeset with BolToBook.',
   },
 };

@@ -111,7 +111,7 @@ export const RichText = forwardRef<DeskEditorHandle, Props>(function RichText(pr
     if (!editor) return;
     onReady?.(editor);
     // Dev-only hook for automated checks.
-    if (import.meta.env.DEV) (window as unknown as { __deskEditor?: Editor }).__deskEditor = editor;
+    if (process.env.NODE_ENV === 'development') (window as unknown as { __deskEditor?: Editor }).__deskEditor = editor;
   }, [editor]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => { editor?.setEditable(editable, false); }, [editor, editable]);
   useEffect(() => {

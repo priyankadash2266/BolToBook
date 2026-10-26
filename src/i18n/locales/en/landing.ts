@@ -2,7 +2,7 @@ import type { LandingCopy } from '@/screens/landing/copy';
 
 const page: LandingCopy = {
   meta: {
-    title: 'Dictationer — Your book, in your own voice',
+    title: 'BolToBook — Your book, in your own voice',
     description:
       'Speak to write, speak to edit, and go from your first spoken thought to a print-ready book. Every word stays yours. Typing is free, always.',
   },
@@ -17,7 +17,7 @@ const page: LandingCopy = {
     startShort: 'Start',
     openDesk: 'Open your desk',
     continue: 'Continue writing',
-    home: 'Dictationer, home',
+    home: 'BolToBook, home',
   },
   hero: {
     eyebrow: 'The First Edition · 2026',
@@ -29,9 +29,9 @@ const page: LandingCopy = {
     trust: ['Typing is free, always', 'Nothing changes without your yes', 'Never used to train AI'],
   },
   demo: {
-    label: 'A writing session in Dictationer',
+    label: 'A writing session in BolToBook',
     srDesc:
-      'An animated manuscript. The author dictates a sentence into Chapter 14. Then the author says: “Go to where Ram tells Cam the truth, and after ‘the debt’ add: and I’ve known for three years.” Dictationer finds the terrace scene in Chapter 9, shows the change with the removed punctuation struck through and the author’s words added, the author taps Accept, and it is saved as a new version.',
+      'An animated manuscript. The author dictates a sentence into Chapter 14. Then the author says: “Go to where Ram tells Cam the truth, and after ‘the debt’ add: and I’ve known for three years.” BolToBook finds the terrace scene in Chapter 9, shows the change with the removed punctuation struck through and the author’s words added, the author taps Accept, and it is saved as a new version.',
     pause: 'Pause the demo',
     play: 'Play the demo',
     stepsLabel: 'What is happening',
@@ -79,7 +79,7 @@ const page: LandingCopy = {
     quote: 'He spoke. She wrote. Twenty-six days later, there was a novel.',
     story:
       'In the autumn of 1866, Fyodor Dostoevsky owed his publisher a novel and had less than a month left to deliver it. He hired a young stenographer, Anna Snitkina. He paced the room and spoke; she took it down in shorthand. The Gambler was finished in twenty-six days.',
-    tie: 'Dictationer is that stenographer, for you. It never tires, and it never changes your words.',
+    tie: 'BolToBook is that stenographer, for you. It never tires, and it never changes your words.',
     cite: 'Fyodor Dostoevsky and Anna Snitkina · St Petersburg, 1866',
   },
   journey: {
@@ -89,8 +89,8 @@ const page: LandingCopy = {
       { n: 'I.', title: 'A thought arrives at 2:14 a.m.', body: 'Say it before it’s gone. It’s kept as a Lap: no chapter to pick, no folder, no form. Sort it out tomorrow, or next month.' },
       { n: 'II.', title: 'Three weeks later, it’s waiting', body: 'You pinned that Lap to Chapter 7. Open the chapter and it waits quietly in the margin, in your own words. Use it now, or leave it for later.' },
       { n: 'III.', title: 'Plan by talking it through', body: 'Say “Chapter nine is where Ram finally tells her.” Your plan becomes index cards along the arc of the book, and every card keeps your note exactly as you said it.' },
-      { n: 'IV.', title: 'Speak the chapter. Write your idea.', body: 'Dictationer writes down what you say. Fillers go, punctuation arrives, and every change is marked. Switch views to see your words exactly as you spoke them.' },
-      { n: 'V.', title: 'Find any moment by describing it', body: 'You remember the moment, not the chapter. Describe it, and Dictationer shows you every place it happens, with the words marked.' },
+      { n: 'IV.', title: 'Speak the chapter. Write your idea.', body: 'BolToBook writes down what you say. Fillers go, punctuation arrives, and every change is marked. Switch views to see your words exactly as you spoke them.' },
+      { n: 'V.', title: 'Find any moment by describing it', body: 'You remember the moment, not the chapter. Describe it, and BolToBook shows you every place it happens, with the words marked.' },
       { n: 'VI.', title: 'It remembers your book', body: 'The people, places and notes you save stay together, along with every chapter they appear in. Your notes, in your words, a tap away.' },
       { n: 'VII.', title: 'Proofread, one mark at a time', body: 'Spelling and punctuation, nothing more. Every fix is marked on the page and waits for your yes. Tap a fix to accept it.' },
       { n: 'VIII.', title: 'Dress it in a cover', body: 'Start from a design direction, then set the type, colour and layout yourself. Your title, your name, your call.' },
@@ -236,7 +236,7 @@ const page: LandingCopy = {
   writers: {
     kick: 'For every kind of writer',
     title: 'Write your way. Every book gets its own desk.',
-    body: 'A novel isn’t a memoir, and a poem isn’t a how-to. Tell Dictationer what you’re writing, and your workspace fits the work: its shelves, its plan, its checks.',
+    body: 'A novel isn’t a memoir, and a poem isn’t a how-to. Tell BolToBook what you’re writing, and your workspace fits the work: its shelves, its plan, its checks.',
     label: 'Kind of book',
     shelvesLabel: 'On your shelves',
     types: [
@@ -258,13 +258,13 @@ const page: LandingCopy = {
       'Your recordings are private. Delete one, or all of them, anytime.',
       'Your book and your voice are never used to train AI.',
     ],
-    sign: '— the Dictationer team',
+    sign: '— the BolToBook team',
     place: 'Bengaluru',
   },
   pricing: {
     kick: 'The First Edition',
     title: 'Be one of the first 500 writers.',
-    lead: 'We’re opening Dictationer to a first edition of writers. Join now, and your founding price is locked for life.',
+    lead: 'We’re opening BolToBook to a first edition of writers. Join now, and your founding price is locked for life.',
     items: [
       { k: 'To start', v: 'Free' },
       { k: 'Typing', v: 'Free, forever' },
@@ -281,7 +281,7 @@ const page: LandingCopy = {
     items: [
       {
         q: 'Will it change my story?',
-        a: 'No. Dictationer writes down what you say, tidies fillers and punctuation, and marks every change. When you ask for an edit by voice, the words it adds are the words you spoke. Nothing is saved until you say yes, and every earlier version can be restored.',
+        a: 'No. BolToBook writes down what you say, tidies fillers and punctuation, and marks every change. When you ask for an edit by voice, the words it adds are the words you spoke. Nothing is saved until you say yes, and every earlier version can be restored.',
       },
       { q: 'Which languages can I write in?', a: 'English at launch, with more languages on the way.' },
       {

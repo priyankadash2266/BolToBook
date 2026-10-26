@@ -1,44 +1,25 @@
 # BolToBook
 
-# Dictationer author studio
+Voice-first English/Hindi book-writing studio. Next.js on Vercel; Supabase Auth, PostgreSQL and private Storage. Guest mode uses IndexedDB on the current device.
 
-A voice-first English/Hindi book-writing beta, evolved from the supplied Dictationer project. Existing React workspace retained under `src/screens`; Vinext handles hosted API routes and the client shell.
+## Run
 
-## Develop
+Install from `pnpm-lock.yaml`, then `npm run dev`. Production: `npm run build` and `npm start`.
 
-Use Node 22+ and the repository's package manager.
+Required server environment variables: `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, `FOUNDER_EMAIL`. Never use a service-role key in the browser. All writing queries run with the authenticated user's access token and owner-based RLS.
 
-```
-pnpm install
-pnpm dev
-pnpm build
-node node_modules/typescript/bin/tsc --noEmit
-node tests/server.test.mjs
-```
+## Database
 
-D1 migrations are in `drizzle/`. The hosting manifest declares DB and BUCKET bindings. Sites provisions these during deployment. Auth comes from Sites authenticated headers; each record is scoped to its signed-in owner. Runtime secret `FOUNDER_EMAIL` restricts `/api/founder`. Do not place secrets in frontend code.
+`database/schema.sql` is the initial schema applied to the BolToBook Supabase project. It includes record ownership, a private manuscripts bucket, write-only analytics/interest endpoints and a founder-only aggregate report. Do not apply it twice unchanged. Anonymous capture functions intentionally use restricted SECURITY DEFINER privileges; clients cannot read email lists or events.
 
-## Routes
+## Account setup before public acquisition
 
-- `/` and `/hi`: landing pages and beta interest test.
-- `/start`: book onboarding.
-- `/app/library`: books.
-- `/app/laps`: idea inbox.
-- `/app/laps?capture=1`: quick capture entry point.
-- `/app/b/:bookId/chapters`: chapter planning and idea assembly.
-- `/app/b/:bookId/cover`: cover directions and run history.
-- `/app/b/:bookId/generate`: multi-size/style previews and exports.
-- `/app/settings`: preferences, backup import/export and evaluation credits.
-- `/founder`: owner dashboard. Data is protected on the server, not just hidden in the UI.
+Set Supabase Auth Site URL to the final Vercel/custom origin and configure allowed redirects. Configure custom SMTP for sign-up confirmation emails to people outside the Supabase project team; default Supabase mail is restricted. Keep email confirmation enabled. Signup is at `/auth`, guest studio at `/app`, founder analytics at `/founder`. Founder email must be confirmed.
 
-## Honest capability boundaries
+## Current scope and limitations
 
-This is a private review beta. Generation uses existing illustrated cover templates and browser pagination. There are no real AI provider calls or monetary payments. Credit costs and top-ups are evaluation-only. The Buy beta button records interest; it does not create a subscription. The proposed price is ₹499/month and needs validation.
+This is an evaluation beta. Cover artwork uses templates, manuscript assembly preserves original words, and AI generation is not connected. Credits are free test credits, with demo top-ups, not paid money. The beta pricing button records interest and takes no payment. Existing Sites data is not automatically migrated: export/import text data in Settings; media needs separate transfer. Browser microphone support varies. Vercel request-size limits constrain proxied audio uploads; direct signed uploads are a follow-up for long recordings. Original Sites/Cloudflare build helpers are retained for history but are not used by the Next.js build.
 
-Guest work stays in its browser. Signed-in work uses cloud storage. To migrate guest content, export the guest backup and import it when signed in. Audio/media are not included in the JSON backup format, so download important files separately. Concurrent editing is not collaborative; avoid editing the same field on multiple devices at once.
+## Verification
 
-See `PRODUCT_PLAN.md` for decisions, research, launch dependencies and verification limits.
-
-
-## Vercel migration status
-This snapshot preserves the working Sites beta. It is not yet deployable on Vercel: the Cloudflare D1/R2 bindings and trusted ChatGPT identity headers must be replaced with independent storage and verified authentication first. Do not deploy the existing auth helper on a public Node server.
+Next.js production compilation and TypeScript validation. Supabase transaction tests checked own-user book access, cross-user isolation, Hindi content, anonymous analytics and interest recording; test data was rolled back. Device microphone, print/export dialogs and email delivery require device and SMTP verification. Platform-level Vercel deployment protection remains enabled until explicitly changed.
