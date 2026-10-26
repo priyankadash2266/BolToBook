@@ -1,0 +1,43 @@
+/* LiveWave */
+.lw { display: inline-flex; align-items: center; flex: none; }
+.lw-bar { display: block; border-radius: 3px; background: currentColor; transform: scaleY(.12); transform-origin: center; will-change: transform; opacity: .9; }
+.lw.is-active .lw-bar { opacity: 1; }
+
+/* MicOrb */
+.orb {
+  --orb: var(--brand); --orb-2: var(--brand-2); --orb-ink: var(--paper); --orb-halo: rgba(24, 60, 57, .18);
+  position: relative; flex: none; border: 0; padding: 0; border-radius: 50%; background: transparent; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; isolation: isolate;
+}
+.orb-lap { --orb: #B57F22; --orb-2: #9C6A12; --orb-ink: #FFF8E8; --orb-halo: rgba(192, 138, 46, .28); }
+.orb-study { --orb: var(--brass); --orb-2: #B08840; --orb-ink: var(--study); --orb-halo: rgba(201, 161, 90, .3); }
+.orb:disabled { opacity: .5; cursor: not-allowed; }
+.orb-core {
+  position: absolute; inset: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--orb-ink);
+  background: radial-gradient(circle at 32% 28%, color-mix(in srgb, var(--orb) 78%, #fff) 0%, var(--orb) 46%, var(--orb-2) 100%);
+  box-shadow: 0 10px 24px -10px var(--orb-halo), inset 0 1px 0 rgba(255, 255, 255, .25), inset 0 -6px 14px rgba(0, 0, 0, .12);
+  transition: transform .18s var(--ease);
+}
+.orb:hover .orb-core { transform: scale(1.04); }
+.orb:active .orb-core { transform: scale(.97); }
+.orb-stop { width: 30%; height: 30%; border-radius: 4px; background: currentColor; }
+.orb-ring { position: absolute; inset: 0; border-radius: 50%; background: var(--orb-halo); z-index: -1; transform: scale(1); transition: transform .12s linear, opacity .3s; }
+.orb:not(.is-on) .orb-ring-1 { animation: orb-breathe 3.2s ease-in-out infinite; }
+.orb:not(.is-on) .orb-ring-2 { opacity: 0; }
+.orb.is-on .orb-ring-1 { transform: scale(calc(1.12 + var(--lvl) * .45)); opacity: .9; }
+.orb.is-on .orb-ring-2 { transform: scale(calc(1.25 + var(--lvl) * .9)); opacity: .45; }
+@keyframes orb-breathe { 0%, 100% { transform: scale(1); opacity: .0; } 50% { transform: scale(1.22); opacity: .9; } }
+
+/* AudioWave */
+.aw { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.aw-btn { width: 34px; height: 34px; border-radius: 50%; border: 0; flex: none; cursor: pointer; display: flex; align-items: center; justify-content: center; background: var(--lap); color: #FFF8E8; }
+.aw-brand .aw-btn { background: var(--brand); color: var(--paper); }
+.aw-btn:disabled { opacity: .45; cursor: default; }
+.aw-wave { flex: 1; min-width: 60px; height: 30px; display: flex; align-items: center; gap: 2px; cursor: pointer; }
+.aw-bar { flex: 1; max-width: 4px; min-width: 2px; height: 100%; border-radius: 2px; background: color-mix(in srgb, var(--lap) 35%, transparent); transform-origin: center; transition: background .15s; }
+.aw-brand .aw-bar { background: color-mix(in srgb, var(--brand-2) 30%, transparent); }
+.aw-bar.is-past { background: var(--lap); }
+.aw-brand .aw-bar.is-past { background: var(--brand-2); }
+.aw-time { font-size: 12px; color: var(--ink-4); font-variant-numeric: tabular-nums; min-width: 34px; text-align: right; }
+
+@media (prefers-reduced-motion: reduce) { .orb-ring { animation: none !important; } }

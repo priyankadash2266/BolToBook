@@ -1,0 +1,86 @@
+/* Review — presentation layer over finish.css (scoped to .rvx so it never leaks into Preview & Generate). */
+
+/* The run panel: a reading desk with a brass knot. */
+.rvx .rv-run { position: relative; padding: 24px 26px; gap: 18px; background-color: var(--paper); background-image: var(--grain); }
+.rvx .rv-run::after { content: ''; position: absolute; inset: 6px; border: 1px solid var(--rule-2); border-radius: calc(var(--r-lg) - 4px); pointer-events: none; }
+.rvx .rv-run > * { position: relative; z-index: 1; }
+.rvx .rv-intro { font-family: var(--font-book); font-size: 16px; line-height: 1.65; color: var(--ink-2); }
+:root[lang='hi'] .rvx .rv-intro { font-family: var(--font-deva-book); }
+.rvx .rv-progress-bar { height: 3px; background: linear-gradient(90deg, var(--brass), var(--brass-2)); }
+
+/* Report header */
+.rvx .rv-report { margin-bottom: 40px; }
+.rvx .rv-report-head { gap: 8px; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid var(--rule); }
+.rvx .rv-report-sum { font-family: var(--font-display); font-style: italic; font-size: 17px; color: var(--ink-2); }
+:root[lang='hi'] .rvx .rv-report-sum { font-style: normal; }
+.rvx .rv-neutral { color: var(--ink-3); }
+.rvx .rv-neutral svg { color: var(--brass); }
+
+/* Section cards */
+.rvx .rv-cards { gap: 16px; }
+.rvx .rv-card { border: 1px solid var(--c-hair, #E6DCCB); box-shadow: var(--shadow-card); transition: box-shadow .2s var(--ease); }
+.rvx .rv-card.is-open { box-shadow: var(--shadow-lift); }
+.rvx .rv-card-toggle { min-height: 64px; padding: 12px 20px; gap: 14px; }
+.rvx .rv-card-toggle:hover { background: #FAF6EE; }
+.rvx .rv-card-title { font-size: 21px; letter-spacing: -.01em; }
+.rvx .rv-count { min-width: 38px; height: 38px; font-size: 17px; font-weight: 400; padding: 0 9px; }
+.rvx .rv-count.is-zero { background: transparent; color: var(--ink-3); }
+.rvx-caret { width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: var(--ink-3); flex: none; transition: transform .25s var(--ease), background .15s; }
+.rvx .rv-card-toggle:hover .rvx-caret { background: var(--desk); }
+.rvx .rv-card-toggle[aria-expanded='true'] .rvx-caret { transform: rotate(180deg); }
+.rvx .rv-card-body { padding: 0 20px 20px; gap: 14px; border-top: 1px solid var(--rule-2); padding-top: 16px; }
+.rvx .rv-card-d { font-size: 14px; color: var(--ink-3); }
+.rvx .rv-nothing { font-family: var(--font-display); font-style: italic; font-size: 16px; color: var(--ink-3); }
+:root[lang='hi'] .rvx .rv-nothing { font-style: normal; }
+
+/* Findings: each one a quoted passage under a thin rule. */
+.rvx .rv-finding { padding: 16px 0; border-top: 1px solid var(--rule-2); gap: 10px; }
+.rvx .rv-findings > .rv-finding:first-child { border-top: 0; padding-top: 4px; }
+.rvx .rv-finding-text { font-size: 15px; color: var(--ink); }
+.rvx .rv-quote {
+  position: relative; border-left: 0; padding: 4px 0 4px 30px; margin: 2px 0;
+  font-size: 16.5px; line-height: 1.65; font-style: italic; color: var(--ink-2);
+}
+.rvx .rv-quote.deva-book { font-style: normal; font-size: 17px; }
+.rvx .rv-quote::before {
+  content: '\201C'; position: absolute; left: 0; top: -6px; font-family: var(--font-display); font-style: normal;
+  font-size: 40px; line-height: 1; color: var(--brass);
+}
+.rvx .rv-links { gap: 6px; }
+.rvx .rv-link { min-height: 36px; gap: 7px; padding: 0 12px 0 4px; font-size: 13px; }
+.rvx-chn {
+  display: inline-flex; align-items: center; height: 26px; padding: 0 8px; border-radius: var(--r-pill);
+  background: var(--brass-tint); color: var(--brass-ink); font-family: var(--font-display); font-style: italic; font-size: 13px; white-space: nowrap;
+}
+:root[lang='hi'] .rvx-chn { font-style: normal; }
+.rvx .rv-link .rv-link-t { color: var(--ink-2); }
+.rvx-go { color: var(--ink-4); transition: transform .15s; }
+.rvx a.rv-link:hover .rvx-go { transform: translateX(2px); color: var(--brand); }
+
+/* Pace bars */
+.rvx .rv-bar-track { background: var(--desk); box-shadow: inset 0 1px 1px rgba(60, 45, 20, .08); }
+.rvx .rv-bar-fill { background: linear-gradient(90deg, var(--brand-2), var(--brand)); opacity: .85; }
+.rvx .rv-bar-fill.is-far { background: linear-gradient(90deg, #C9604C, var(--edit)); }
+.rvx .rv-bar-avg { background: var(--brass-ink); }
+.rvx .rv-bars-avg i { background: var(--brass-ink); }
+
+/* Proofreading slips */
+.rvx .rv-proof { background-color: var(--desk); background-image: var(--grain); border: 1px solid var(--rule-2); padding: 14px 16px; }
+.rvx .rv-issue { box-shadow: 0 1px 2px rgba(60, 45, 20, .06); }
+.rvx .rv-issue-rule { font-size: 11.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--brass-ink); }
+:root[lang='hi'] .rvx .rv-issue-rule { letter-spacing: 0; text-transform: none; font-size: 12.5px; }
+
+/* Earlier reviews */
+.rvx .rv-row { box-shadow: 0 1px 2px rgba(60, 45, 20, .05); }
+.rvx .rv-row.is-current { border-color: var(--brass); box-shadow: 0 0 0 1px var(--brass) inset, 0 1px 2px rgba(60, 45, 20, .05); }
+.rvx .rv-row-date { font-family: var(--font-display); font-weight: 400; font-size: 16px; }
+.rvx .rv-row .kit-iconbtn { width: 44px; height: 44px; }
+
+@media (max-width: 640px) {
+  .rvx .rv-run { padding: 18px 16px; }
+  .rvx .rv-card-toggle { padding: 10px 14px; }
+  .rvx .rv-card-body { padding: 14px 14px 16px; }
+  .rvx .rv-card-title { font-size: 18px; }
+  .rvx .rv-quote { padding-left: 24px; font-size: 16px; }
+  .rvx .rv-quote::before { font-size: 32px; }
+}

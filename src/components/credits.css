@@ -1,0 +1,18 @@
+.credits-chip {
+  display: inline-flex; align-items: center; gap: 7px; min-height: 34px; padding: 0 12px 0 8px; border-radius: var(--r-pill);
+  background: rgba(241, 234, 219, .06); border: 1px solid rgba(241, 234, 219, .14); color: var(--study-ink); text-decoration: none; font-size: 13.5px;
+}
+.credits-chip:hover { background: rgba(241, 234, 219, .12); color: var(--study-ink); }
+.credits-coin { width: 16px; height: 16px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #F2DCA6, var(--brass) 55%, #9C7A35); box-shadow: inset 0 0 0 1.5px rgba(107, 78, 23, .35); }
+.credits-n { font-weight: 600; font-variant-numeric: tabular-nums; }
+.credits-label { color: var(--study-ink-3); }
+@media (max-width: 760px) { .credits-label { display: none; } }
+
+.paid { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+.paid-btn { gap: 10px; }
+.paid-cost { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: var(--r-pill); font-size: 12px; font-weight: 600; background: rgba(255, 255, 255, .16); }
+.btn-ghost .paid-cost, .btn-quiet .paid-cost { background: var(--brass-tint); color: var(--brass-ink); }
+.paid-btn.is-busy { cursor: progress; }
+.paid-spin { width: 15px; height: 15px; border-radius: 50%; border: 2px solid currentColor; border-right-color: transparent; animation: paid-spin .8s linear infinite; }
+@keyframes paid-spin { to { transform: rotate(360deg); } }
+.paid-short { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; color: var(--edit-ink); }

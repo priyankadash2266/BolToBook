@@ -1,0 +1,101 @@
+/*
+ * Dictationer design tokens.
+ * Paper and ink: warm off-white grounds and near-black ink reduce glare in long sessions.
+ * Every accent has one meaning across the product:
+ *   --brand (bottle green)  primary actions, the author's own text being dictated
+ *   --edit  (vermilion)     voice edits, removed text
+ *   --add   (green)         added text
+ *   --lap   (ochre)         Laps, the author's captured thoughts
+ *   --source (slate blue)   source material and research
+ */
+:root {
+  --desk: #F4EFE6;
+  --desk-2: #EAE3D6;
+  --desk-3: #E0D8C9;
+  --paper: #FCFAF5;
+  --paper-2: #FBF8F1;
+  --rule: #E3DCCF;
+  --rule-2: #EFE9DE;
+  --line: #D9D0C0;
+  --line-2: #CFC5B2;
+
+  --ink: #1E2422;
+  --ink-strong: #14201E;
+  --ink-2: #3B4440;
+  --ink-3: #5A615D;
+  --ink-4: #636A65;
+  --ink-faint: #8A8173;
+
+  --brand: #183C39;
+  --brand-hover: #0F2826;
+  --brand-2: #2F5D57;
+  --brand-tint: #E4ECE8;
+  --brand-tint-2: #DDE8E2;
+
+  --edit: #B8432F;
+  --edit-ink: #8E2F20;
+  --edit-tint: #F6DFD7;
+
+  --add-ink: #1C5235;
+  --add-tint: #DCEAD6;
+  --add-line: #3E7D55;
+
+  --lap: #C08A2E;
+  --lap-ink: #4F3A0E;
+  --lap-ink-2: #6A4A0F;
+  --lap-tint: #F6EAD0;
+  --lap-line: #E2CB97;
+
+  --source: #4A6B8A;
+  --source-ink: #2B3A4A;
+  --source-tint: #EEF1F5;
+
+  /* The study: the frame around the page (header + sidebar), like a cloth-bound notebook cover. */
+  --study: #132E2A;
+  --study-2: #183A35;
+  --study-3: #21483F;
+  --study-line: rgba(241, 234, 219, .10);
+  --study-ink: #F1EADB;
+  --study-ink-2: #C2CEC6;
+  --study-ink-3: #8EA49A;
+  /* Brass: highlights in the frame, ornaments, the active place. */
+  --brass: #C9A15A;
+  --brass-2: #E2C48A;
+  --brass-ink: #6B4E17;
+  --brass-tint: #F3E6C8;
+  /* Accent hues for people and places (cards, medallions). Same lightness, so none shouts. */
+  --hue-1: #2F5D57; --hue-2: #8A5A2B; --hue-3: #4A6B8A; --hue-4: #7A4E6B; --hue-5: #5F6E33; --hue-6: #9A4B3A;
+
+  --night: #14231F;
+  --night-2: #1E312C;
+  --night-ink: #EDE6D8;
+  --night-ink-2: #9FB1AA;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-book: 'Literata', Georgia, serif;
+  --font-ui: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-deva-book: 'Tiro Devanagari Hindi', 'Literata', serif;
+  --font-deva-ui: 'Mukta', 'Hanken Grotesk', sans-serif;
+
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
+  --r-xl: 20px;
+  --r-pill: 999px;
+
+  --shadow-page: 0 1px 0 var(--rule), 0 22px 44px -26px rgba(40, 30, 15, .35);
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, .6) inset, 0 1px 2px rgba(60, 45, 20, .06), 0 14px 30px -24px rgba(60, 45, 20, .5);
+  --shadow-lift: 0 2px 4px rgba(60, 45, 20, .06), 0 24px 44px -26px rgba(60, 45, 20, .55);
+  /* Paper grain, very faint, so large cream areas don't look flat. */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .27 0 0 0 0 .15 0 0 0 .045 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --ruled: repeating-linear-gradient(180deg, transparent 0 31px, rgba(160, 130, 80, .13) 31px 32px);
+  --shadow-pop: 0 24px 60px -24px rgba(20, 15, 5, .45);
+
+  --header-h: 60px;
+  --ease: cubic-bezier(.3, .1, .2, 1);
+}
+
+:root[lang='hi'] {
+  --font-ui: var(--font-deva-ui);
+  --font-display: var(--font-deva-book);
+}

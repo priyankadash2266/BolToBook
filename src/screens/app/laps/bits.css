@@ -1,0 +1,56 @@
+/* Laps: pieces shared by the page and the capture sheet (typed tags, parsed chips, the saved check). */
+
+.lp-tag {
+  --tg: var(--ink-3);
+  display: inline-flex; align-items: center; gap: 6px; min-height: 28px; padding: 3px 10px 3px 9px; max-width: 100%;
+  border-radius: var(--r-pill); font-size: 13px; line-height: 1.25; overflow-wrap: anywhere;
+  background: color-mix(in srgb, var(--tg) 9%, var(--paper)); color: color-mix(in srgb, var(--tg) 82%, var(--ink));
+  border: 1px solid color-mix(in srgb, var(--tg) 22%, transparent);
+}
+.lp-tag-character { --tg: var(--hue-1); }
+.lp-tag-location { --tg: var(--hue-3); }
+.lp-tag-event { --tg: var(--hue-2); }
+.lp-tag-chapter { --tg: var(--ink-3); }
+.lp-tag-theme { --tg: var(--hue-4); }
+.lp-tag-other { --tg: var(--hue-5); }
+.lp-tag-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--tg); flex: none; }
+.lp-tag-chapter .lp-tag-dot { border-radius: 1px; }
+.lp-tag-type { font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; opacity: .78; }
+:root[lang='hi'] .lp-tag-type { letter-spacing: 0; text-transform: none; font-size: 12px; font-weight: 600; }
+.lp-tag-name { font-weight: 500; }
+.lp-tag-x { width: 26px; height: 26px; margin: -4px -6px -4px -2px; border-radius: 50%; border: 0; background: transparent; color: inherit; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; flex: none; }
+.lp-tag-x:hover { background: rgba(0, 0, 0, .08); }
+.lp-tag-btn { cursor: pointer; min-height: 36px; font: inherit; font-size: 13px; transition: background .15s, border-color .15s, color .15s, box-shadow .15s; }
+.lp-tag-btn:hover { border-color: color-mix(in srgb, var(--tg) 45%, transparent); }
+.lp-tag-btn[aria-pressed='true'] { background: var(--tg); color: var(--paper); border-color: var(--tg); box-shadow: 0 6px 14px -8px var(--tg); }
+.lp-tag-btn[aria-pressed='true'] .lp-tag-dot { background: var(--paper); }
+.lp-tag.is-dark { background: rgba(241, 234, 219, .07); border-color: rgba(241, 234, 219, .16); color: var(--study-ink); }
+.lp-tag.is-dark .lp-tag-dot { background: color-mix(in srgb, var(--tg) 45%, var(--brass-2)); }
+.lp-tag.is-dark .lp-tag-x:hover { background: rgba(255, 255, 255, .1); }
+
+.lp-parsed { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.lp-parsed-title {
+  display: inline-flex; align-items: baseline; gap: 6px; min-height: 28px; padding: 3px 12px; max-width: 100%; overflow-wrap: anywhere;
+  border-radius: var(--r-pill); background: var(--brass-tint); color: var(--brass-ink); border: 1px solid var(--lap-line); font-size: 13.5px;
+}
+.lp-parsed-k { font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
+:root[lang='hi'] .lp-parsed-k { letter-spacing: 0; text-transform: none; font-size: 12px; }
+.lp-parsed-v { font-family: var(--font-display); font-style: italic; font-size: 15px; }
+.lp-parsed.is-dark .lp-parsed-title { background: rgba(201, 161, 90, .14); border-color: rgba(201, 161, 90, .38); color: var(--brass-2); }
+.lp-twistchip {
+  display: inline-flex; align-items: center; gap: 5px; min-height: 28px; padding: 3px 12px; border-radius: var(--r-pill);
+  background: var(--edit-tint); color: var(--edit-ink); font-size: 12.5px; font-weight: 600;
+}
+.lp-parsed.is-dark .lp-twistchip { background: rgba(184, 67, 47, .22); color: #F4C9BE; }
+
+.lp-intent { display: inline-flex; align-items: center; gap: 7px; margin: 0; padding: 5px 12px; border-radius: var(--r-pill); background: var(--brand-tint); color: var(--brand); font-size: 13.5px; max-width: 100%; overflow-wrap: anywhere; }
+.lp-intent svg { flex: none; }
+
+/* The "Saved" check: the ring draws, then the tick. */
+.lp-check-anim { flex: none; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.lp-check-anim circle { stroke: var(--lap); stroke-width: 2; stroke-dasharray: 114; stroke-dashoffset: 114; animation: lp-draw .5s var(--ease) forwards; fill: color-mix(in srgb, var(--lap) 12%, transparent); }
+.lp-check-anim path { stroke: var(--lap-ink-2); stroke-width: 2.6; stroke-dasharray: 26; stroke-dashoffset: 26; animation: lp-draw .35s .35s var(--ease) forwards; }
+@keyframes lp-draw { to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .lp-check-anim circle, .lp-check-anim path { animation: none; stroke-dashoffset: 0; }
+}

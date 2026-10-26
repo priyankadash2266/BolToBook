@@ -1,0 +1,51 @@
+
+html body .kit-vt-head{display:flex;position:static;align-items:flex-start;flex-wrap:wrap;gap:10px;min-height:44px;padding:0 0 4px}
+html body .kit-vt-label{flex:1 1 150px;line-height:1.35;min-width:0}
+html body .kit-vt-mic{position:static;transform:none;flex:0 0 auto;min-height:44px;padding:10px 15px;align-self:flex-start}
+html body .kit-vt-input{width:100%;box-sizing:border-box;min-height:120px;padding:14px 16px;resize:vertical}
+html body .sim-blurb-frame{background-image:none}
+html body .sim-blurb-vt .kit-vt-head{padding-bottom:12px;align-items:flex-start}
+html body .sim-comp{width:100%;max-width:none;box-sizing:border-box}
+html body .sim-comp-fields{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;border-top:1px solid var(--rule);padding-top:18px}
+html body .sim-comp-say{align-items:flex-start;gap:18px}
+html body .sim-comp-saytext{width:100%;min-width:0}
+html body .sim-comp-sayhint{display:block;margin-top:5px}
+html body .sim-comp-eg{line-height:1.6}
+html body .sim-fold{min-width:44px;min-height:44px;opacity:1;visibility:visible}
+html body .sim-cardtools{flex-shrink:0;opacity:1}
+html body .sim-cast.is-folded .sim-cast-epi{display:none}
+html body .lap-hero{display:block;grid-template-columns:none;padding:28px;background-image:none}
+html body .lp-cap{display:grid;grid-template-columns:72px minmax(0,1fr);grid-template-areas:'orb caption' 'field field' 'help help' 'extra extra';gap:16px;align-items:center}
+html body .lp-cap-orb{min-height:72px;justify-content:flex-start}
+html body .lp-cap-orb .orb{width:64px!important;height:64px!important}
+html body .lp-cap-caption{justify-content:flex-start;text-align:left;font-family:var(--font-ui);font-style:normal;font-size:17px;line-height:1.5}
+html body .lp-cap-field{display:block;width:100%}
+html body .lp-field{width:100%;box-sizing:border-box;min-height:144px}
+html body .lp-cap-extra{width:100%;align-items:stretch}
+html body .lp-hintrow{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+html body .lps-cap{grid-template-columns:72px minmax(0,1fr);grid-template-areas:'orb caption' 'page page' 'help help';gap:14px;align-items:center}
+html body .lps-cap-orb{padding:0}
+html body .lps-cap-orb .orb{width:64px!important;height:64px!important}
+html body .lps-cap-caption{text-align:left;font-style:normal;line-height:1.5}
+html body .lps-chips{margin-left:0}
+.studio-status{background:#e9eee7;color:#33483b;padding:9px 20px;font:12px/1.5 var(--font-ui);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.studio-status a{color:inherit;text-decoration:underline}
+.beta-panel{padding:72px 24px;background:#223f35;color:#f5eee0}
+.beta-inner{max-width:1060px;margin:auto;display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:center}
+.beta-eyebrow{font:12px var(--font-ui);letter-spacing:.15em;text-transform:uppercase;color:#d4b875}
+.beta-panel h2{font:400 clamp(32px,4vw,48px)/1.13 var(--font-display);margin:20px 0}
+.beta-panel p{line-height:1.7;color:#d5ddd4;max-width:48ch}
+.beta-card{background:#f8f4e9;color:#233f35;border-radius:20px;padding:32px;box-shadow:0 16px 50px #10251d33}
+.beta-card p{color:#58685e}.beta-price{font:44px var(--font-display);margin:18px 0}.beta-price small{font:14px var(--font-ui)}
+.beta-card ul{padding-left:20px;line-height:1.9}.beta-card button{width:100%}.beta-fine{font-size:13px;line-height:1.6}
+.beta-form{display:grid;gap:15px;padding:24px}.beta-form input[type=email]{width:100%;padding:12px;border:1px solid #bfc8be;border-radius:8px}.beta-form label{line-height:1.6}.beta-form input[type=checkbox]{margin-right:8px}
+.founder{max-width:1160px;margin:auto;padding:40px 24px 80px;color:#253f34;font-family:var(--font-ui)}
+.founder h1{font:46px var(--font-display);margin:18px 0}.founder-top{display:flex;justify-content:space-between;gap:16px;align-items:center}.founder-meta{font-size:13px;color:#6c786e}
+.founder-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:28px 0}.founder-stat{padding:24px;border:1px solid #dedfd2;border-radius:14px;background:#fffdf7}.founder-stat strong{font:42px var(--font-display);display:block;margin:12px 0}.founder-stat span{font-size:13px}
+.founder-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:24px}.founder-box{padding:24px;border:1px solid #dedfd2;border-radius:14px;background:#fffdf7}.founder-box h2{font:25px var(--font-display);margin:0 0 24px}.funnel-row{margin:18px 0}.funnel-row>div:first-child{display:flex;justify-content:space-between;font-size:14px}.funnel-bar{height:9px;background:#e9ecdf;border-radius:9px;margin-top:9px}.funnel-bar span{display:block;height:100%;background:#54765b;border-radius:9px}.founder table{border-collapse:collapse;width:100%;font-size:13px}.founder td,.founder th{padding:12px 8px;border-bottom:1px solid #e4e4d7;text-align:left}.founder-scroll{overflow:auto}.founder-note{line-height:1.7;color:#657468}.trend-bars{height:160px;display:flex;align-items:flex-end;gap:5px;border-bottom:1px solid #ddd}.trend-bars>div{flex:1;min-width:4px;background:#6f8c6e;border-radius:3px 3px 0 0}
+.assemble{background:var(--paper);border:1px solid var(--rule);border-radius:16px;padding:24px;margin:18px 0}.assemble h2{font:28px var(--font-display);margin:0 0 10px}.assemble-list{max-height:300px;overflow:auto;margin:16px 0}.assemble-list label{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--rule);line-height:1.6}.assemble-list input{margin-top:5px}.assemble-actions{display:flex;gap:12px;flex-wrap:wrap}
+@media(max-width:720px){.beta-inner,.founder-grid{grid-template-columns:1fr;gap:28px}.founder-stats{grid-template-columns:repeat(2,1fr)}.founder-stat{padding:16px}.founder h1{font-size:34px}.founder-top{align-items:flex-start}.beta-panel{padding:48px 20px}html body .sim-part-top{flex-wrap:wrap}html body .sim-part-title{flex:1;min-width:140px}html body .sim-cast-head{flex-wrap:wrap}html body .lap-hero{padding:20px 16px}html body .sim-comp-sayhint{font-size:13px}.studio-status{font-size:11px}}
+
+@media(max-width:900px){html body .gn-work{grid-template-columns:minmax(0,1fr)}html body .gn-stagecard{min-width:0}html body .gn-makebar{flex-wrap:wrap;gap:16px}html body .gn-makebar-text{min-width:0;flex-basis:100%}}
+
+html body .app{height:calc(100dvh - var(--studio-status-height,0px))}

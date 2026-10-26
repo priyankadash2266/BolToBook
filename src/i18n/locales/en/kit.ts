@@ -1,0 +1,31 @@
+export default {
+  box: { up: 'Move up', down: 'Move down', remove: 'Remove' },
+  wip: 'The nonfiction workspace is a work in progress. It works the same way as fiction for now; research and sources are coming.',
+  add: 'Add',
+  undo: 'Undo',
+  entry: 'Entry',
+  removed: 'Removed “{name}”.',
+  noChapter: 'Not linked to a chapter',
+  voice: {
+    speak: 'Speak into {field}',
+    stop: 'Stop listening',
+    unsupported: 'Voice needs Chrome, Edge or Safari. Typing works everywhere.',
+    denied: 'Microphone blocked. Allow it in your browser’s site settings.',
+    error: 'Voice stopped. Try again.',
+    stopShort: 'Stop',
+    sayIt: 'Say it',
+    listening: 'Listening — speak naturally',
+  },
+  appears: {
+    label: 'Appears in',
+    count: '{n} mentions in {c} chapters',
+    none: 'Not in the manuscript yet',
+    times: '{n} mentions',
+    notHere: 'not here',
+  },
+  needsText: {
+    title: 'This needs some manuscript first',
+    body: 'Once there are words on the page, this view shows what it finds in them.',
+    cta: 'Open the manuscript',
+  },
+};

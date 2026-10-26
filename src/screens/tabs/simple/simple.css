@@ -1,0 +1,544 @@
+/* Simple workspace: Brief · Characters · World · Plot / Timeline — "the writer's study" */
+
+/* ================================================================== */
+/* Shared                                                              */
+/* ================================================================== */
+.sim-scope { --sim-hue: var(--brand-2); }
+
+.sim-kick {
+  display: inline-block; font-family: var(--font-ui); font-weight: 600; font-size: 11px; letter-spacing: .15em;
+  text-transform: uppercase; color: var(--brass-ink);
+}
+:root[lang='hi'] .sim-kick { letter-spacing: .02em; font-size: 13px; text-transform: none; }
+
+/* Writing boxes sit on soft paper; the Say it pill lives in the header row above each one (VoiceTextarea). */
+.sim-scope .kit-vt-input { background: var(--paper-2); border-color: var(--rule); transition: border-color .15s, box-shadow .15s, background .15s; }
+.sim-scope .kit-vt-input:hover { border-color: var(--line); }
+.sim-scope .kit-vt-input:focus { background: var(--paper); }
+
+/* Box titles are names: display face for Latin, book face for Devanagari. */
+.sim-scope .kit-box-title.book { font-family: var(--font-display); }
+
+/* A box we scrolled to glows once. */
+.sim-flash { animation: sim-flash 1.4s var(--ease); }
+@keyframes sim-flash { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--brass) 60%, transparent); } 30% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--brass) 35%, transparent); } 100% { box-shadow: 0 0 0 0 transparent; } }
+
+/* Portrait medallion */
+.sim-med {
+  position: relative; flex: none; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+  background: color-mix(in srgb, var(--sim-hue) 11%, var(--paper));
+  color: var(--sim-hue);
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--sim-hue) 55%, transparent), 0 0 0 3px var(--paper), 0 0 0 4px color-mix(in srgb, var(--sim-hue) 28%, transparent);
+  font-family: var(--font-display); font-style: italic; line-height: 1;
+  transition: background .3s, color .3s, box-shadow .3s;
+}
+.sim-med.is-deva { font-family: var(--font-deva-book); font-style: normal; }
+.sim-med-ini { letter-spacing: .02em; transform: translateY(-.02em); }
+.sim-med.is-empty { background: var(--paper-2); box-shadow: inset 0 0 0 1.5px var(--line), 0 0 0 3px var(--paper), 0 0 0 4px var(--rule); }
+.sim-med-add { width: 56px; height: 56px; color: var(--brand); background: transparent; box-shadow: none; border: 1.5px dashed var(--line-2); }
+.sim-med.is-live { animation: sim-pop .35s var(--ease); }
+@keyframes sim-pop { from { transform: scale(.85); opacity: .4; } to { transform: none; opacity: 1; } }
+
+/* Ribbon: "Appears in" as chapter ticks */
+.sim-ribbon .kit-appears { gap: 4px; }
+.sim-ribbon .kit-appears-head { align-items: baseline; }
+.sim-ribbon .kit-appears-head .label { font-size: 11px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; color: var(--brass-ink); }
+:root[lang='hi'] .sim-ribbon .kit-appears-head .label { letter-spacing: .02em; font-size: 13px; text-transform: none; }
+.sim-ribbon .kit-appears-head .faint { font-size: 12.5px; }
+.sim-ribbon .kit-strip {
+  gap: 0; padding: 0 6px; border-radius: var(--r-pill); align-items: center; min-height: 26px;
+  background: linear-gradient(var(--rule), var(--rule)) center / 100% 1px no-repeat, color-mix(in srgb, var(--sim-hue) 5%, var(--paper));
+  box-shadow: inset 0 0 0 1px var(--rule-2);
+}
+.sim-ribbon .kit-cell { position: relative; flex: 1; min-width: 6px; max-width: 28px; height: 26px; background: transparent; border-radius: 0; }
+.sim-ribbon .kit-cell::before { content: ''; position: absolute; left: 50%; top: 9px; bottom: 9px; width: 2px; margin-left: -1px; border-radius: 1px; background: var(--line); }
+.sim-ribbon .kit-cell.is-on::before { top: 5px; bottom: 5px; width: 4px; margin-left: -2px; border-radius: 2px; background: var(--sim-hue); }
+.sim-ribbon .kit-cell.is-on:hover { background: transparent; }
+.sim-ribbon .kit-cell.is-on:hover::before { top: 2px; bottom: 2px; }
+.sim-ribbon .kit-cell.is-on:focus-visible { outline: 2px solid var(--brand-2); outline-offset: -2px; border-radius: 4px; }
+
+/* Card tools: remove (and order) plus the fold chevron, on one row at the card's top right */
+.sim-scope .kit-box-tools .kit-iconbtn { width: 36px; height: 36px; }
+.sim-cardtools { flex: none; display: flex; align-items: center; gap: 2px; }
+.sim-fold {
+  flex: none; width: 36px; height: 36px; border-radius: 8px; border: 0; background: transparent; color: var(--ink-3); cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; transition: background .15s, color .15s;
+}
+.sim-fold:hover { background: var(--desk-2); color: var(--ink); }
+.sim-fold svg { transition: transform .2s var(--ease); }
+.sim-fold.is-folded svg { transform: rotate(-90deg); }
+.sim-fold:focus-visible { outline: 2px solid var(--brand-2); outline-offset: 1px; }
+.sim-listbar { display: flex; align-items: center; justify-content: space-between; gap: 8px 16px; flex-wrap: wrap; min-height: 36px; }
+.sim-foldall { flex: none; margin-right: -8px; }
+
+/* ================================================================== */
+/* Add composer (characters, places, events): one card, two equal ways */
+/* ================================================================== */
+.sim-comp {
+  background: var(--paper); border: 1px solid #E6DFD2; border-radius: var(--r-lg); box-shadow: var(--shadow-card);
+  padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 16px; min-width: 0;
+  transition: border-color .2s, box-shadow .2s;
+}
+.sim-comp:focus-within { border-color: var(--line-2); box-shadow: var(--shadow-lift); }
+.sim-comp.is-listening { border-color: color-mix(in srgb, var(--edit) 40%, var(--line)); }
+.sim-comp-head { display: flex; align-items: center; gap: 16px; }
+.sim-comp-slot { flex: none; display: flex; }
+.sim-comp-headtext { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.sim-comp-title { font-size: 22px; line-height: 1.2; color: var(--ink-strong); letter-spacing: -.01em; }
+.sim-comp-line { font-size: 14.5px; color: var(--ink-3); line-height: 1.5; }
+
+/* Say it all at once */
+.sim-comp-say {
+  display: flex; align-items: center; gap: 14px; padding: 12px 14px; border-radius: var(--r-md);
+  background: color-mix(in srgb, var(--brand) 5%, var(--paper-2)); border: 1px solid color-mix(in srgb, var(--brand-2) 18%, var(--rule));
+  transition: background .2s, border-color .2s;
+}
+.sim-comp-say .orb { flex: none; }
+.sim-comp-say.is-on { background: color-mix(in srgb, var(--edit) 6%, var(--paper)); border-color: color-mix(in srgb, var(--edit) 35%, var(--rule)); }
+.sim-comp-saytext { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.sim-comp-saylabel { font-weight: 600; font-size: 15px; line-height: 1.35; color: var(--brand); }
+.sim-comp-sayhint { font-weight: 400; color: var(--ink-3); }
+.sim-comp-eg { font-size: 14.5px; font-style: italic; color: var(--ink-4); line-height: 1.45; }
+.sim-comp-eg.deva-book { font-style: normal; }
+.sim-comp-status { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 600; color: var(--edit-ink); }
+.sim-comp-interim { font-size: 16px; color: var(--ink-2); line-height: 1.5; }
+.sim-comp-done { flex: none; }
+.sim-comp-err { font-size: 13.5px; color: var(--edit-ink); margin-top: -8px; }
+
+/* The two fields: same label row height as VoiceTextarea's header, so labels line up */
+.sim-comp-fields { display: flex; flex-direction: column; gap: 12px; }
+.sim-comp-field { display: flex; flex-direction: column; gap: 8px; }
+.sim-comp-lrow { display: flex; align-items: center; min-height: 36px; }
+.sim-comp-lrow .label { margin: 0; }
+.sim-comp-name { font-size: 19px; min-height: 48px; background: var(--paper-2); border-color: var(--rule); }
+.sim-comp-name.deva-book { font-family: var(--font-deva-book); }
+.sim-comp-name:focus { background: var(--paper); }
+.sim-comp-foot { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding-top: 2px; }
+
+/* First time: the composer is the welcome */
+.kit-boxes > .sim-comp.is-first, .kit-boxes > .sim-ev-end.is-first { grid-column: 1 / -1; }
+.sim-comp.is-first { max-width: 760px; width: 100%; padding: 28px 32px 30px; gap: 20px; }
+.sim-comp.is-first .sim-comp-head { gap: 24px; }
+.sim-comp-art { flex: none; width: 112px; height: auto; color: var(--brand-2); opacity: .9; }
+.sim-comp-art .ta-brass { color: var(--brass); stroke: var(--brass); }
+.sim-comp-title.is-warm { font-size: 28px; font-style: italic; margin-top: 2px; }
+:root[lang='hi'] .sim-comp-title.is-warm { font-style: normal; }
+
+/* Drawings for the summary's empty state */
+.sim-say-art { width: 132px; height: auto; color: var(--brand-2); opacity: .85; }
+.sim-say-art .ta-brass { color: var(--brass); stroke: var(--brass); }
+.sim-say-warm { font-size: 26px; line-height: 1.2; color: var(--ink-strong); font-style: italic; letter-spacing: -.01em; }
+:root[lang='hi'] .sim-say-warm { font-style: normal; }
+
+/* ================================================================== */
+/* Brief                                                               */
+/* ================================================================== */
+.sim-sec { margin-bottom: 48px; }
+.sim-sec-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+
+/* "In a few lines" as back-cover copy. The field's label is the heading; Say it sits on that row, above the page. */
+.sim-blurb { margin-bottom: 52px; max-width: 860px; }
+.sim-blurb-frame {
+  position: relative; background: var(--paper); border-radius: 4px; padding: 30px 40px 24px;
+  box-shadow: var(--shadow-page), inset 0 0 0 10px var(--paper), inset 0 0 0 11px color-mix(in srgb, var(--brass) 45%, transparent), inset 0 0 0 14px var(--paper), inset 0 0 0 14.5px color-mix(in srgb, var(--brass) 25%, transparent);
+  display: flex; flex-direction: column; gap: 6px;
+}
+.sim-blurb-vt { gap: 12px; }
+.sim-blurb-vt .kit-vt-head { min-height: 44px; align-items: center; }
+.sim-blurb-vt .kit-vt-label { font-family: var(--font-display); font-weight: 400; font-size: 30px; line-height: 1.15; color: var(--ink-strong); letter-spacing: -.015em; }
+.sim-blurb-vt .kit-vt-input {
+  font-size: 20px; line-height: 1.75; color: var(--ink); padding: 16px 20px; min-height: 184px;
+  background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--r-md);
+}
+.sim-blurb-vt .kit-vt-input.book, .sim-blurb-vt .kit-vt-input.deva-book { font-size: 20px; }
+.sim-blurb-vt .kit-vt-input::placeholder { color: var(--ink-faint); font-style: italic; }
+.sim-blurb-vt .kit-vt-input:focus { background: var(--paper); }
+.sim-blurb-foot { display: flex; align-items: baseline; justify-content: space-between; gap: 6px 16px; flex-wrap: wrap; padding-top: 4px; }
+.sim-blurb-hint { flex: 1 1 300px; font-size: 14.5px; line-height: 1.5; color: var(--ink-3); font-style: italic; font-family: var(--font-book); }
+:root[lang='hi'] .sim-blurb-hint { font-style: normal; font-family: var(--font-ui); }
+.sim-blurb-meta { display: inline-flex; align-items: center; gap: 12px; }
+.sim-count { font-size: 12.5px; color: var(--ink-4); font-variant-numeric: tabular-nums; }
+
+/* Themes */
+.sim-chips { display: flex; flex-wrap: wrap; gap: 8px; max-width: 860px; align-items: center; }
+.sim-theme {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px 0 13px;
+  border-radius: var(--r-pill); border: 1px solid var(--line); background: var(--paper); color: var(--ink-2);
+  font-size: 14.5px; font-weight: 500; cursor: pointer; box-shadow: 0 1px 1px rgba(60, 45, 20, .04);
+  transition: background .18s, border-color .18s, color .18s, transform .12s;
+}
+.sim-theme:hover { border-color: color-mix(in srgb, var(--brass) 60%, var(--line)); color: var(--ink); }
+.sim-theme:active { transform: translateY(1px); }
+.sim-theme-glyph { flex: none; color: var(--brass); transition: color .18s; }
+.sim-theme-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--brass-2); flex: none; }
+.sim-theme-check { flex: none; opacity: .85; }
+.sim-theme[aria-pressed='true'] { background: var(--brand); border-color: var(--brand); color: var(--paper); box-shadow: 0 6px 14px -10px rgba(24, 60, 57, .8); }
+.sim-theme[aria-pressed='true']:hover { background: var(--brand-hover); border-color: var(--brand-hover); color: var(--paper); }
+.sim-theme[aria-pressed='true'] .sim-theme-glyph { color: var(--brass-2); }
+.sim-theme-count { margin-top: 10px; font-size: 13px; }
+
+.sim-own {
+  display: inline-flex; align-items: center; gap: 6px; max-width: 100%;
+  min-height: 44px; padding: 0 6px 0 14px; border: 1.5px dashed var(--line-2); border-radius: var(--r-pill);
+  background: transparent; transition: border-color .15s, background .15s;
+}
+.sim-own:focus-within { border-style: solid; border-color: var(--brand-2); background: var(--paper); box-shadow: 0 0 0 3px var(--brand-tint); }
+.sim-own-plus { color: var(--brand); display: inline-flex; }
+.sim-own-input { border: 0; background: transparent; outline: none; font-size: 14.5px; color: var(--ink); width: 170px; max-width: 60vw; min-height: 40px; padding: 0; }
+.sim-own-input::placeholder { color: var(--ink-3); }
+.sim-own .btn { flex: none; }
+
+/* The story, part by part: numbered cards on a brass thread; each folds to its name, "Add after" sits between */
+.sim-sec-arc .sim-sec-head { max-width: 900px; }
+.kit-boxes-v-arc { --part-num: 40px; --part-pad: 18px; --part-gap: 14px; gap: 0; max-width: 900px; }
+.kit-box-v-arc { background: none; border: 0; box-shadow: none; padding: 0; display: block; border-radius: 0; }
+
+.sim-part {
+  background: var(--paper); border: 1px solid #E6DFD2; border-radius: var(--r-lg); box-shadow: var(--shadow-card);
+  padding: 12px 10px 18px var(--part-pad); transition: box-shadow .2s, border-color .2s;
+}
+.sim-part.is-folded { padding-bottom: 12px; }
+.sim-part:focus-within { border-color: var(--line-2); box-shadow: var(--shadow-lift); }
+.sim-part-top { display: flex; align-items: center; gap: var(--part-gap); }
+.sim-part-num {
+  flex: none; width: var(--part-num); height: var(--part-num); border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  background: var(--paper); color: var(--brass-ink); border: 1.5px solid var(--brass);
+  font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: 15px; letter-spacing: -.02em;
+}
+.sim-part-title { flex: 1; min-width: 0; display: flex; }
+.sim-part .kit-box-title { font-size: 21px; width: 100%; }
+.sim-part .kit-box-tools { opacity: .45; }
+.sim-part:hover .kit-box-tools, .sim-part:focus-within .kit-box-tools { opacity: 1; }
+.sim-part-body { padding: 8px 8px 0 calc(var(--part-num) + var(--part-gap)); }
+.sim-part-after { position: relative; display: flex; align-items: center; min-height: 48px; padding-left: calc(var(--part-pad) + var(--part-num) + var(--part-gap)); }
+.sim-part-after::before {
+  content: ''; position: absolute; left: calc(var(--part-pad) + var(--part-num) / 2 - 1px); top: 0; bottom: 0;
+  border-left: 2px dotted color-mix(in srgb, var(--brass) 65%, transparent);
+}
+.sim-part-after.is-last { min-height: 60px; }
+.sim-part-after.is-last::before { bottom: 50%; }
+.sim-addafter {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 14px 0 10px; border-radius: var(--r-pill);
+  border: 1px dashed var(--line-2); background: transparent; color: var(--brand); font-size: 13.5px; font-weight: 600; cursor: pointer;
+  opacity: .75; transition: opacity .15s, background .15s, border-color .15s;
+}
+.sim-addafter:hover, .sim-addafter:focus-visible { opacity: 1; border-style: solid; border-color: var(--brand-2); background: var(--paper); }
+.sim-part-after.is-last .sim-addafter { opacity: 1; min-height: 40px; font-size: 14.5px; border-color: color-mix(in srgb, var(--brand-2) 45%, var(--line-2)); background: color-mix(in srgb, var(--paper) 60%, transparent); }
+.sim-arc-first {
+  display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; padding: 30px 24px 28px;
+  background: var(--paper); border: 1px solid #E6DFD2; border-radius: var(--r-lg); box-shadow: var(--shadow-card); max-width: 680px;
+}
+.sim-arc-first-line { color: var(--ink-3); font-size: 15px; line-height: 1.5; max-width: 440px; margin-bottom: 8px; }
+
+/* ================================================================== */
+/* Characters                                                          */
+/* ================================================================== */
+.sim-cast-strip { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+.sim-cast-row { list-style: none; margin: 0; padding: 4px 2px 6px; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin; }
+.sim-cast-pick {
+  display: flex; flex-direction: column; align-items: center; gap: 8px; width: 88px; padding: 8px 4px; border: 0; background: none;
+  border-radius: var(--r-md); cursor: pointer; color: var(--ink-2); transition: background .15s, transform .15s;
+}
+.sim-cast-pick:hover { background: var(--paper); transform: translateY(-1px); }
+.sim-cast-pick-name { font-size: 13px; line-height: 1.25; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.sim-constellation { margin-bottom: 36px; }
+.sim-constellation-head { margin-bottom: 14px; }
+.sim-map {
+  margin: 0; max-width: 760px; border-radius: var(--r-lg); padding: 10px 10px 12px; position: relative; overflow: hidden;
+  background: var(--night); color: var(--night-ink); box-shadow: var(--shadow-page), inset 0 0 0 1px rgba(255, 255, 255, .05);
+}
+.sim-map svg { display: block; width: 100%; height: auto; overflow: visible; }
+.sim-map-stars circle { fill: var(--brass-2); opacity: .35; }
+.sim-map-line { fill: none; stroke: var(--brass); stroke-opacity: .5; stroke-linecap: round; transition: stroke-opacity .2s, stroke .2s; }
+.sim-map-line.is-named { stroke-dasharray: 1 6; stroke-opacity: .6; }
+.sim-map.has-hot .sim-map-line { stroke-opacity: .1; }
+.sim-map.has-hot .sim-map-line.is-on { stroke-opacity: .95; stroke: var(--brass-2); }
+.sim-map-node { cursor: pointer; outline: none; transition: opacity .2s; }
+.sim-map-node.is-dim { opacity: .35; }
+.sim-map-halo { fill: color-mix(in srgb, var(--sim-hue) 30%, transparent); opacity: 0; transition: opacity .2s; }
+.sim-map-node.is-hot .sim-map-halo, .sim-map-node:focus-visible .sim-map-halo { opacity: 1; }
+.sim-map-node:focus-visible .sim-map-disc { stroke: var(--brass-2); stroke-width: 2.5; }
+.sim-map-disc { fill: var(--night-2); stroke: color-mix(in srgb, var(--sim-hue) 55%, #fff); stroke-width: 1.6; }
+.sim-map-ini { font-size: 15px; font-style: italic; fill: var(--night-ink); font-family: var(--font-display); pointer-events: none; }
+.sim-map-name { font-size: 12.5px; fill: var(--night-ink-2); font-family: var(--font-ui); pointer-events: none; }
+.sim-map-node.is-hot .sim-map-name { fill: var(--night-ink); }
+.sim-map-key { display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; font-size: 12.5px; color: var(--night-ink-2); padding-top: 2px; }
+.sim-map-key span { display: inline-flex; align-items: center; gap: 8px; }
+.sim-map-key-line { display: inline-block; width: 22px; height: 0; border-top: 2px solid var(--brass); opacity: .8; }
+.sim-map-key-line.is-named { border-top-style: dotted; }
+
+/* Cast cards */
+.kit-boxes-v-cast { gap: 18px; }
+.kit-box-v-cast { padding: 0; gap: 0; overflow: hidden; position: relative; border-color: #E6DFD2; box-shadow: var(--shadow-card); transition: box-shadow .2s, border-color .2s; }
+.kit-box-v-cast:focus-within { box-shadow: var(--shadow-lift); border-color: var(--line-2); }
+.sim-cast { position: relative; display: flex; flex-direction: column; }
+.sim-cast-top {
+  position: absolute; left: 0; right: 0; top: 0; height: 58px;
+  background: color-mix(in srgb, var(--sim-hue) 9%, var(--paper));
+  border-bottom: 1px solid color-mix(in srgb, var(--sim-hue) 16%, var(--rule));
+  transition: background .3s;
+}
+.sim-cast-top::after {
+  content: ''; position: absolute; right: 18px; bottom: -4px; width: 7px; height: 7px; transform: rotate(45deg);
+  background: var(--paper); border: 1px solid color-mix(in srgb, var(--brass) 70%, transparent);
+}
+.sim-cast-head { position: relative; display: flex; align-items: flex-start; gap: 16px; padding: 22px 12px 4px 20px; }
+.sim-cast-med { margin-top: 2px; }
+.sim-cast-id { flex: 1; min-width: 0; display: flex; flex-direction: column; padding-top: 6px; }
+.sim-cast-no { font-family: var(--font-display); font-style: italic; font-size: 13px; color: color-mix(in srgb, var(--sim-hue) 80%, var(--ink)); line-height: 1.2; }
+:root[lang='hi'] .sim-cast-no { font-style: normal; }
+.kit-box-v-cast .kit-box-title { font-size: 25px; line-height: 1.2; padding: 6px 0 4px; margin-top: 8px; letter-spacing: -.01em; }
+.sim-cast-epi { font-family: var(--font-book); font-style: italic; font-size: 15px; line-height: 1.5; color: var(--ink-3); margin-top: 2px;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.sim-cast-epi::before { content: '— '; color: var(--brass); font-style: normal; }
+.sim-cast .kit-box-tools { opacity: .5; }
+.sim-cast-head .sim-cardtools { margin-top: 2px; }
+.sim-cast.is-folded .sim-cast-head { padding-bottom: 16px; }
+.sim-cast.is-folded .sim-cast-epi { -webkit-line-clamp: 1; }
+.kit-box-v-cast:hover .kit-box-tools, .kit-box-v-cast:focus-within .kit-box-tools { opacity: 1; }
+.sim-cast-body { display: flex; flex-direction: column; gap: 8px; padding: 10px 20px 20px; }
+.sim-cast-notes { display: flex; flex-direction: column; gap: 6px; }
+.sim-disclose {
+  align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 10px 0 6px; margin-left: -6px;
+  border: 0; background: none; color: var(--brand); font-size: 13.5px; font-weight: 500; cursor: pointer; border-radius: var(--r-pill);
+}
+.sim-disclose:hover { background: var(--brand-tint); }
+.sim-disclose-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--brass); }
+.sim-ruled .kit-vt-input {
+  background: var(--paper) var(--ruled); background-attachment: local; line-height: 32px; font-size: 16px; padding-top: 0; padding-bottom: 0;
+  border-color: var(--rule);
+}
+.sim-ruled .kit-vt-input.book, .sim-ruled .kit-vt-input.deva-book { font-size: 16px; }
+
+.sim-conn { display: flex; flex-direction: column; gap: 6px; padding-top: 4px; }
+.sim-conn-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.sim-conn-chip {
+  display: inline-flex; align-items: center; gap: 8px; max-width: 100%; min-height: 44px;
+  padding: 0 12px 0 8px; border-radius: var(--r-pill); border: 1px solid var(--rule); background: var(--paper-2);
+  color: var(--ink-2); font-size: 13.5px; cursor: pointer; transition: border-color .15s, background .15s;
+}
+.sim-conn-chip:hover { border-color: var(--line-2); background: var(--paper); }
+.sim-conn-chip .sim-med { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sim-hue) 55%, transparent); }
+.sim-conn-name { font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sim-conn-why { color: var(--ink-4); font-size: 12px; white-space: nowrap; }
+
+/* ================================================================== */
+/* World                                                               */
+/* ================================================================== */
+.sim-atlas { display: flex; flex-direction: column; gap: 8px; margin-bottom: 26px; }
+.sim-atlas-row { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; row-gap: 2px; }
+.sim-atlas-row li { display: inline-flex; align-items: center; }
+.sim-atlas-sep { width: 4px; height: 4px; border-radius: 50%; background: var(--brass); margin: 0 4px; opacity: .7; }
+.sim-atlas-chip {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 10px; border: 0; background: none; cursor: pointer;
+  font-family: var(--font-display); font-size: 17px; color: var(--ink-2); border-radius: var(--r-pill); transition: background .15s, color .15s;
+}
+.sim-atlas-chip:hover { background: var(--paper); color: var(--ink-strong); }
+.sim-pdot { width: 10px; height: 10px; border-radius: 50%; flex: none; background: var(--sim-hue); box-shadow: 0 0 0 2px var(--paper), 0 0 0 3px color-mix(in srgb, var(--sim-hue) 35%, transparent); }
+
+.kit-boxes-v-place { gap: 18px; }
+.kit-box-v-place { padding: 0; gap: 0; overflow: hidden; box-shadow: var(--shadow-card); transition: box-shadow .2s, border-color .2s; }
+.kit-box-v-place:focus-within { box-shadow: var(--shadow-lift); border-color: var(--line-2); }
+.sim-place-head {
+  position: relative; height: 92px; overflow: hidden;
+  background: color-mix(in srgb, var(--sim-hue) 8%, var(--paper));
+  border-bottom: 1px solid color-mix(in srgb, var(--sim-hue) 18%, var(--rule));
+}
+.sim-motif { position: absolute; inset: 0; width: 100%; height: 100%; color: color-mix(in srgb, var(--sim-hue) 62%, var(--paper)); }
+.sim-mo-sun { stroke: var(--brass); }
+.sim-mo-compass { color: var(--brass-ink); opacity: .55; }
+.sim-place.is-folded .sim-place-head { height: 52px; }
+.sim-place-head { transition: height .2s var(--ease); }
+.sim-place-top { display: flex; align-items: flex-start; gap: 8px; padding: 14px 12px 0 20px; }
+.sim-place.is-folded .sim-place-top { padding-bottom: 14px; }
+.sim-place-id { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.sim-place .kit-box-tools { opacity: .5; }
+.kit-box-v-place:hover .kit-box-tools, .kit-box-v-place:focus-within .kit-box-tools { opacity: 1; }
+.sim-place-body { display: flex; flex-direction: column; gap: 8px; padding: 4px 20px 20px; }
+.sim-place-no { font-family: var(--font-display); font-style: italic; font-size: 13px; color: color-mix(in srgb, var(--sim-hue) 80%, var(--ink)); }
+:root[lang='hi'] .sim-place-no { font-style: normal; }
+.kit-box-v-place .kit-box-title { font-size: 25px; line-height: 1.2; padding: 2px 0 4px; letter-spacing: -.01em; }
+
+.sim-compass {
+  width: 56px; height: 56px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; overflow: hidden; position: relative;
+  border: 1.5px dashed var(--line-2); color: var(--brand); background: transparent;
+}
+.sim-compass .sim-motif.is-mini { position: absolute; inset: 0; background: color-mix(in srgb, var(--sim-hue) 10%, var(--paper)); }
+.sim-compass .sim-motif.is-mini .sim-mo-compass { display: none; }
+
+/* ================================================================== */
+/* Plot / Timeline                                                     */
+/* ================================================================== */
+.sim-tl-sum { margin-bottom: 26px; }
+.sim-tl-line { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 10px; font-size: 15px; color: var(--ink-2); }
+.sim-tl-line strong { color: var(--ink-strong); font-weight: 600; font-family: var(--font-display); font-size: 18px; }
+.sim-tl-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--brass); }
+.sim-tl-flag { color: var(--edit-ink); font-weight: 500; }
+.sim-tl-howto { font-size: 13.5px; margin-top: 6px; max-width: 640px; line-height: 1.5; }
+
+.kit-boxes-v-rail {
+  --tl-when: 236px; --tl-rail: 48px; --tl-x: calc(var(--tl-when) + var(--tl-rail) / 2);
+  --tl-line: color-mix(in srgb, var(--brass) 70%, transparent);
+  gap: 0; max-width: 900px;
+}
+.kit-box-v-rail { background: none; border: 0; box-shadow: none; padding: 0; display: block; border-radius: 0; }
+.kit-box-v-rail:focus-within, .kit-box-v-arc:focus-within { box-shadow: none; border-color: transparent; }
+/* Each row paints its own piece of the brass rail, so it runs unbroken. */
+.sim-ev, .sim-ev-gap, .sim-ev-ins-row, .sim-ev-end {
+  background: linear-gradient(var(--tl-line), var(--tl-line)) calc(var(--tl-x) - 1px) 0 / 2px 100% no-repeat;
+}
+.kit-box-v-rail:first-child .sim-ev { background-position: calc(var(--tl-x) - 1px) 27px; }
+.sim-ev {
+  display: grid; grid-template-columns: var(--tl-when) var(--tl-rail) minmax(0, 1fr);
+  grid-template-areas: 'when rail card'; align-items: start; padding-bottom: 6px;
+}
+.sim-ev-when { grid-area: when; padding: 10px 2px 0 0; }
+.kit-box-v-rail .kit-box-title {
+  width: 100%; text-align: right; font-family: var(--font-display); font-style: italic; font-size: 17px; line-height: 1.3; color: var(--brass-ink);
+  padding: 4px 0;
+}
+.kit-box-v-rail .kit-box-title.deva-book { font-family: var(--font-deva-book); font-style: normal; }
+.kit-box-v-rail .kit-box-title::placeholder { color: color-mix(in srgb, var(--brass-ink) 45%, var(--paper)); }
+.sim-ev-rail { grid-area: rail; display: flex; justify-content: center; padding-top: 12px; }
+.sim-ev-node {
+  width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+  background: var(--paper); border: 1.5px solid var(--brass); color: var(--brass-ink);
+  font-family: var(--font-display); font-style: italic; font-size: 13.5px; font-variant-numeric: lining-nums;
+  box-shadow: 0 0 0 4px var(--desk);
+}
+:root[lang='hi'] .sim-ev-node { font-style: normal; }
+.sim-ev.has-mark .sim-ev-node { border-color: var(--edit); color: var(--edit-ink); }
+.sim-ev-node.is-next { border-style: dashed; color: var(--brand); border-color: var(--line-2); background: var(--desk); }
+.sim-ev-card {
+  grid-area: card; position: relative; background: var(--paper); border: 1px solid #E6DFD2; border-radius: var(--r-lg);
+  padding: 10px 12px 14px 16px; display: flex; flex-direction: column; gap: 8px; box-shadow: var(--shadow-card);
+  transition: box-shadow .2s, border-color .2s; margin-bottom: 6px;
+}
+.sim-ev-card::before {
+  content: ''; position: absolute; left: -6px; top: 20px; width: 10px; height: 10px; transform: rotate(45deg);
+  background: var(--paper); border-left: 1px solid #E6DFD2; border-bottom: 1px solid #E6DFD2;
+}
+.sim-ev-card:focus-within { border-color: var(--line-2); box-shadow: var(--shadow-lift); }
+.sim-ev-cardtop { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 32px; }
+.sim-ev-card .kit-box-tools { opacity: .4; }
+.sim-ev-peek { flex: 1; min-width: 0; font-size: 16px; line-height: 1.4; color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sim-ev.is-folded .sim-ev-card { padding-bottom: 10px; }
+/* Open: the tools sit at the top right, on the same row as the field's label and Say it pill */
+.sim-ev:not(.is-folded) .sim-ev-cardtop { position: absolute; top: 10px; right: 12px; min-height: 36px; z-index: 1; }
+.sim-ev:not(.is-folded) .sim-ev-card .kit-vt-head { padding-right: 80px; }
+.sim-ev:not(.is-folded) .sim-ev-card { padding-top: 10px; }
+.sim-ev-body { display: flex; flex-direction: column; }
+.sim-ev-card:hover .kit-box-tools, .sim-ev-card:focus-within .kit-box-tools { opacity: 1; }
+.sim-ev-marks { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.sim-ev-mark {
+  display: inline-flex; align-items: baseline; gap: 6px; flex-wrap: wrap; font-size: 13px; line-height: 1.45; color: var(--edit-ink);
+  padding: 4px 10px 4px 8px; border-radius: var(--r-sm); background: color-mix(in srgb, var(--edit) 7%, var(--paper));
+}
+.sim-ev-mark::before { content: ''; flex: none; width: 6px; height: 6px; transform: rotate(45deg) translateY(-1px); background: var(--edit); }
+.sim-mark-detail { font-weight: 400; color: var(--ink-3); }
+
+/* Era gaps: time passes on the rail */
+.sim-ev-gap {
+  display: grid; grid-template-columns: var(--tl-when) var(--tl-rail) minmax(0, 1fr); align-items: center; min-height: 34px;
+  background: repeating-linear-gradient(180deg, var(--tl-line) 0 3px, transparent 3px 8px) calc(var(--tl-x) - 1px) 0 / 2px 100% no-repeat;
+}
+.sim-ev-gap span { grid-column: 1; text-align: right; padding-right: 2px; font-family: var(--font-display); font-style: italic; font-size: 14px; color: var(--ink-4); }
+:root[lang='hi'] .sim-ev-gap span { font-style: normal; }
+.sim-ev-gap.is-era { min-height: 52px; }
+.sim-ev-gap.is-era span { color: var(--brass-ink); font-size: 15px; }
+
+/* Add between events */
+.sim-ev-insert {
+  position: relative; display: flex; align-items: center; width: 100%; height: 26px; padding: 0; border: 0; cursor: pointer;
+  background: linear-gradient(var(--tl-line), var(--tl-line)) calc(var(--tl-x) - 1px) 0 / 2px 100% no-repeat;
+  color: var(--brand); opacity: 1;
+}
+.sim-ev-insert svg {
+  position: absolute; left: calc(var(--tl-x) - 12px); top: 1px; width: 24px; height: 24px; padding: 4px; box-sizing: border-box;
+  border-radius: 50%; background: var(--paper); border: 1.5px solid var(--brand-2); opacity: 0; transform: scale(.7);
+  transition: opacity .15s, transform .15s var(--ease);
+}
+.sim-ev-insert::before { content: ''; position: absolute; left: calc(var(--tl-x) - 22px); top: -9px; width: 44px; height: 44px; }
+.sim-ev-insert-label {
+  position: absolute; left: calc(var(--tl-x) + 22px); top: 3px; font-size: 13px; font-weight: 600; color: var(--brand);
+  opacity: 0; transition: opacity .15s; white-space: nowrap;
+}
+.kit-box-v-rail:hover .sim-ev-insert svg, .sim-ev-insert:focus-visible svg { opacity: 1; transform: none; }
+.sim-ev-insert:hover .sim-ev-insert-label, .sim-ev-insert:focus-visible .sim-ev-insert-label { opacity: 1; }
+.sim-ev-insert:focus-visible { outline: none; }
+.sim-ev-insert:focus-visible svg { box-shadow: 0 0 0 3px var(--brand-tint); }
+@media (hover: none) { .sim-ev-insert svg { opacity: .75; transform: none; } }
+
+/* The end of the rail: what happens next? */
+.sim-ev-end {
+  display: grid; grid-template-columns: var(--tl-when) var(--tl-rail) minmax(0, 1fr); align-items: start; padding-top: 6px;
+  background-size: 2px 26px;
+}
+.sim-ev-end .sim-ev-rail { grid-column: 2; grid-row: 1; padding-top: 10px; }
+.sim-ev-end .sim-comp { grid-column: 3; grid-row: 1; }
+.sim-ev-end.is-first { display: block; background: none; padding-top: 0; }
+.sim-ev-slot {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 56px; max-width: 160px; height: 56px; padding: 0 12px;
+  border-radius: var(--r-pill); border: 1.5px dashed var(--line-2); color: var(--brass-ink); font-style: italic; font-size: 16px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+:root[lang='hi'] .sim-ev-slot { font-style: normal; }
+
+/* ================================================================== */
+/* Phones                                                              */
+/* ================================================================== */
+@media (max-width: 760px) {
+  .sim-blurb-frame { padding: 26px 24px 20px; }
+  .sim-blurb-vt .kit-vt-label { font-size: 25px; }
+  .sim-blurb-vt .kit-vt-input { font-size: 18px; padding: 12px 14px; min-height: 240px; }
+  .sim-blurb-vt .kit-vt-input.book, .sim-blurb-vt .kit-vt-input.deva-book { font-size: 18px; }
+}
+@media (max-width: 640px) {
+  .sim-comp { padding: 18px 16px; gap: 14px; }
+  .sim-comp.is-first { padding: 22px 16px; gap: 16px; }
+  .sim-comp.is-first .sim-comp-head { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .sim-comp.is-first .sim-comp-headtext { align-self: stretch; }
+  .sim-comp-art { width: 92px; }
+  .sim-comp-title { font-size: 20px; }
+  .sim-comp-title.is-warm { font-size: 24px; }
+  .sim-comp-say { padding: 10px 12px; gap: 12px; }
+  .sim-comp-foot .btn-primary { flex: 1 1 auto; }
+  .sim-cast-head { padding: 20px 8px 4px 16px; gap: 12px; }
+  .sim-cast.is-folded .sim-cast-head { padding-bottom: 14px; }
+  .sim-cast-body { padding: 8px 16px 18px; }
+  .kit-box-v-cast .kit-box-title, .kit-box-v-place .kit-box-title { font-size: 22px; }
+  .sim-place-top { padding: 12px 8px 0 16px; }
+  .sim-place-body { padding: 4px 16px 18px; }
+  .sim-own { display: flex; width: 100%; }
+  .sim-own-input { flex: 1; width: auto; max-width: none; min-width: 0; }
+
+  /* Parts: the body uses the full card width */
+  .sim-sec-arc .sim-sec-head { max-width: 900px; }
+.kit-boxes-v-arc { --part-num: 34px; --part-pad: 14px; --part-gap: 10px; }
+  .sim-part .kit-box-title { font-size: 19px; }
+  .sim-part-body { padding: 10px 4px 0 0; }
+  .sim-addafter { min-height: 40px; }
+
+  /* Timeline: rail on the left, "when" above each card */
+  .kit-boxes-v-rail { --tl-rail: 36px; --tl-x: 18px; }
+  .sim-ev { grid-template-columns: var(--tl-rail) minmax(0, 1fr); grid-template-areas: 'rail when' 'rail card'; column-gap: 10px; }
+  .sim-ev-when { padding: 6px 0 2px; }
+  .kit-box-v-rail .kit-box-title { text-align: left; font-size: 18px; }
+  .sim-ev-rail { padding-top: 8px; align-self: start; }
+  .sim-ev-node { width: 28px; height: 28px; font-size: 12.5px; }
+  .kit-box-v-rail:first-child .sim-ev { background-position: calc(var(--tl-x) - 1px) 22px; }
+  .sim-ev-card::before { display: none; }
+  .sim-ev-gap { grid-template-columns: var(--tl-rail) minmax(0, 1fr); column-gap: 10px; }
+  .sim-ev-gap span { grid-column: 2; text-align: left; }
+  .sim-ev-end { grid-template-columns: var(--tl-rail) minmax(0, 1fr); column-gap: 10px; }
+  .sim-ev-end .sim-ev-rail { grid-column: 1; }
+  .sim-ev-end .sim-comp { grid-column: 2; }
+  .sim-ev-end .sim-comp-slot { display: none; }
+  .sim-cast-pick { width: 76px; }
+  .sim-foldall { margin-left: -10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sim-flash, .sim-med.is-live { animation: none; }
+  .sim-fold svg { transition: none; }
+}

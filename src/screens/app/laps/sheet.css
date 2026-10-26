@@ -1,0 +1,71 @@
+/* The quick capture sheet ("Got an idea?"): the Laps hero in miniature, in the study's colours. */
+.lps {
+  position: relative; color: var(--study-ink); padding: 22px 24px 22px; border-radius: inherit;
+  background-color: var(--study);
+  background-image: radial-gradient(110% 120% at 100% 0%, rgba(201, 161, 90, .16), transparent 55%), var(--grain);
+}
+.lps-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.lps-kicker { margin: 0 0 6px; display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--brass); }
+.lps-kicker::before { content: ''; width: 16px; height: 1px; background: var(--brass); }
+:root[lang='hi'] .lps-kicker { letter-spacing: .02em; text-transform: none; font-size: 13px; }
+.lps-title { margin: 0; font-size: 30px; line-height: 1.1; color: var(--study-ink); letter-spacing: -.01em; }
+.lps-close { width: 44px; height: 44px; margin: -6px -10px 0 0; border-radius: 12px; border: 0; background: transparent; color: var(--study-ink-2); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; flex: none; }
+.lps-close:hover { background: rgba(241, 234, 219, .08); color: var(--study-ink); }
+
+/* Composer grid: [orb | page] / [caption | helper]. Chips line up with the page's left edge. */
+.lps { --lps-orb: 112px; --lps-gap: 20px; }
+.lps-cap { display: grid; grid-template-columns: var(--lps-orb) minmax(0, 1fr); column-gap: var(--lps-gap); row-gap: 8px; grid-template-areas: 'orb page' 'caption page' '. help'; grid-template-rows: auto 1fr auto; margin: 20px 0 0; }
+.lps-cap-orb { grid-area: orb; display: flex; justify-content: center; padding-top: 10px; }
+.lps-cap-orb .orb-lap { --orb-halo: rgba(201, 161, 90, .32); }
+.lps-cap-caption { grid-area: caption; align-self: start; margin: 4px 0 0; text-align: center; font-family: var(--font-display); font-style: italic; font-size: 15px; line-height: 1.3; color: var(--study-ink); }
+:root[lang='hi'] .lps-cap-caption { font-style: normal; }
+.lps-help { grid-area: help; min-width: 0; display: flex; align-items: center; min-height: 22px; font-size: 12.5px; line-height: 1.4; }
+.lps-help-quiet { color: var(--study-ink-3); }
+.lps-help-live { display: inline-flex; align-items: center; gap: 8px; color: var(--brass-2); flex-wrap: wrap; }
+.lps-err { margin: 12px 0 0; background: rgba(184, 67, 47, .2); color: #F4C9BE; border-radius: 10px; padding: 10px 12px; font-size: 14px; }
+
+/* The words land on a small ruled page. */
+.lps-page {
+  grid-area: page; min-width: 0; border-radius: var(--r-lg); padding: 4px 16px; background-color: #FBF5E6;
+  background-image: var(--ruled); background-position: 0 6px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset, 0 16px 30px -18px rgba(0, 0, 0, .6);
+}
+.lps.is-listening .lps-page { box-shadow: 0 0 0 3px rgba(201, 161, 90, .35), 0 16px 30px -18px rgba(0, 0, 0, .6); }
+.lps-text {
+  display: block; width: 100%; min-height: 128px; max-height: 40vh; field-sizing: content; border: 0; outline: none; resize: none; background: transparent;
+  color: var(--ink); font-size: 18px; line-height: 32px; padding: 6px 0 0; overflow-wrap: anywhere;
+}
+.lps-text.deva-book { font-size: 19px; }
+.lps-text::placeholder { color: var(--ink-faint); font-style: italic; }
+
+.lps-chips { margin: 14px 0 0 calc(var(--lps-orb) + var(--lps-gap)); }
+.lps-k { margin: 0 0 6px; font-size: 12.5px; color: var(--study-ink-3); }
+
+.lps-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(241, 234, 219, .12); flex-wrap: wrap; }
+.lps-book { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--study-ink-2); min-width: 0; }
+.lps-book select { min-height: 44px; max-width: 220px; padding: 6px 10px; border-radius: 10px; background: var(--study-2); color: var(--study-ink); border: 1px solid rgba(241, 234, 219, .16); }
+.lps-save {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 24px; border-radius: var(--r-pill);
+  border: 0; background: var(--brass); color: var(--study); font-size: 15.5px; font-weight: 600; cursor: pointer; transition: background .15s;
+}
+.lps-save:hover:not(:disabled) { background: var(--brass-2); }
+.lps-save:disabled { opacity: .45; cursor: not-allowed; }
+.lps-save:focus-visible, .lps-close:focus-visible { outline: 2px solid var(--brass-2); outline-offset: 2px; }
+
+.lps-saved { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; padding: 28px 0 18px; }
+.lps-saved .lp-check-anim circle { stroke: var(--brass); fill: rgba(201, 161, 90, .12); }
+.lps-saved .lp-check-anim path { stroke: var(--brass-2); }
+.lps-saved-h { margin: 0; font-size: 22px; color: var(--study-ink); }
+.lps-saved .lp-parsed { justify-content: center; }
+
+@media (max-width: 640px) {
+  .lps { padding: 18px 16px calc(18px + env(safe-area-inset-bottom)); }
+  .lps-title { font-size: 26px; }
+  .lps-cap { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'orb' 'caption' 'page' 'help'; grid-template-rows: none; margin-top: 14px; }
+  .lps-cap-orb { padding-top: 4px; }
+  .lps-cap-caption { margin-bottom: 6px; }
+  .lps-chips { margin-left: 0; }
+  .lps-foot { flex-direction: column; align-items: stretch; }
+  .lps-book select { flex: 1; max-width: none; }
+  .lps-save { width: 100%; }
+}
